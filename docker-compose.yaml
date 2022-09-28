@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+
+  nfeloader:
+    stdin_open: true
+    tty: true
+    image: waldirborbajr/nfeloader:dev
+    container_name: nfeloader
+    hostname: nfeloader
+    build:
+      context: .
+      dockerfile: ${PWD}/docker/Dockerfile
+    volumes:
+      - ${PWD}/xmls:/app/xmls:rw
+    working_dir: /app
+    init: true
+    restart: on-failure
+    networks:
+      - infra
+    environment:
+      "FEATURE_TOGGLE": "false"
+      "CONTAINER": "true"
+      "TZ": "America/Sao_Paulo"
+      "LC_CTYPE": "en_US.UTF-8"
+      "LC_ALL": "en_US.UTF-8"
+      "MAIL_SERVER": "mail.omniinformatica.com.br:993"
+      "MAIL_USR": "waldir@omniinformatica.com.br"
+      "MAIL_PWD": "#Senha_123_Mudar*"
+      "DATABASE_HOST": database:3306
+      "DATABASE_USR": "nfeloader"
+      "DATABASE_PWD": "123Mudar"
+      "DATABASE_NAME": "nfeloader"
+      "TIME_SCHEDULE": "2m"
+    depends_on:
+      - database
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    security_opt:
+      - no-new-privileges:true
+    extra_hosts:
+      mail.omniinformatica.com.br: 192.168.0.25
+
+networks:
+  infra:
+    driver: bridge

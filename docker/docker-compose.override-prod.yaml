@@ -1,0 +1,12 @@
+version: "3.8"
+
+# services:
+
+  # nfeloader:
+  #   environment:
+  #     - APP_PORT=6001
+  #     - CWB="SYSDBA:masterkey@192.168.0.2/C:/Program Files (x86)/CompuFour/Clipp/Base/CLIPP.FDB?charset=WIN1252"
+  #     - LON="SYSDBA:masterkey@192.168.1.2/C:/Program Files (x86)/CompuFour/Clipp/Base/CLIPP.FDB?charset=WIN1252"
+  #     - NAT="SYSDBA:masterkey@192.168.2.2/C:/Program Files (x86)/CompuFour/Clipp/Base/CLIPP.FDB?charset=WIN1252"
+  #     - REC="SYSDBA:masterkey@192.168.3.2/C:/Program Files (x86)/CompuFour/Clipp/Base/CLIPP.FDB?charset=WIN1252"
+  #     - ARA="SYSDBA:masterkey@192.168.4.2/C:/Program Files (x86)/CompuFour/Clipp/Base/CLIPP.FDB?charset=WIN1252"

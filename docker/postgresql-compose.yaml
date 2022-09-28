@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+
+  postgresql:
+
+    image: postgres
+    container_name: postgres
+    hostname: postgres
+    stdin_open: true
+    tty: true
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - $PWD/infra/postgres/data/:/var/lib/postgresql/data
+    networks:
+      - infra_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+

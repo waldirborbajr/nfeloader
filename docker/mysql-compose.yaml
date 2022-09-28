@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+
+  database:
+    stdin_open: true
+    tty: true
+    image: mariadb:latest
+    container_name: database
+    hostname: database
+    ports:
+      - 3306:3306
+    volumes:
+      - ${PWD}/infra/mysql_data:/var/lib/mysql:rw
+      - ${PWD}/docker-init/database:/docker-entrypoint-initdb.d/:rw
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "no"
+      MARIADB_ROOT_USER: "root"
+      MARIADB_ROOT_PASSWORD: "123Mudar"
+      MARIADB_PASSWORD: "123Mudar"
+      MARIADB_ROOT_HOST: "%"
+      # MARIADB_DATABASE: "nfeloader"
+      # MARIADB_USER: "nfeloader"
+    ports:
+      - "3306:3306"
+    networks:
+      - infra
+    restart: on-failure
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
