@@ -9,7 +9,7 @@ ptBR: NF-e Loader {Carrega o arquivo XML de NF-e para o banco de dados }
 Language: go 1.18
 
 ## Usage
-
+```
 docker run -it --rm \
 --name nfeloader \
 -e MAIL_SERVER="<imap_server>" \
@@ -24,3 +24,4 @@ docker run -it --rm \
 --restart unless-stopped \
 -d waldirborbajr/nfeloader:latest \
 /bin/sh
+```
