@@ -1,6 +1,8 @@
 # NFeLoader
 
-[![NF-e Logo]("https://holopin.io/api/user/board?user=waldirborbajr")](https://holopin.io/api/user/board?user=waldirborbajr)
+<p>
+<img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="80", heigth="80"/>
+</p>
 
 ## B+ Tech·​nol·​o·​gy
 
