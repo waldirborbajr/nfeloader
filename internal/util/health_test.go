@@ -9,7 +9,8 @@ import (
 
 func TestHeathCheck(t *testing.T) {
 
-	path, err := os.Getwd()
+	// path, err := os.Getwd()
+	path, err := os.Executable()
 
 	assert.Nil(t, err)
 	assert.NotEmpty(t, path)

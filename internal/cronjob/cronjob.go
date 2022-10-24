@@ -19,21 +19,8 @@ import (
 )
 
 func mainJob() {
-	// telegramAPI := telegram.NewAPI(cfg.TelegramChatID, cfg.TelegramBotToken)
-
 	// var xmlFiles []string
 	path := config.AppPath + "/xmls/"
-
-	// file, err := os.OpenFile(
-	// 	appPath+"/logs/nfeloader.log",
-	// 	os.O_CREATE|os.O_APPEND|os.O_WRONLY,
-	// 	0o644,
-	// )
-	// if err != nil {
-	// 	customlog.HandleError("Creating log file", err)
-	// 	os.Exit(-1)
-	// }
-	// log.SetOutput(file)
 
 	log.Info().Msg("======================================================")
 	log.Info().Msgf("Server v%s pid=%d started with processes: %d",

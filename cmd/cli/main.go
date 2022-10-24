@@ -31,5 +31,4 @@ func init() {
 
 func main() {
 	cronjob.RunCronJob()
-	// mainNormal()
 }
