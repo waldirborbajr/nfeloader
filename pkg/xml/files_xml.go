@@ -29,9 +29,9 @@ func ListXML(path string) ([]string, error) {
 		ext := strings.ToUpper(filepath.Ext(f.Name()))
 
 		if ext == ".XML" {
-			if f.Size() != 0 {
-				files = append(files, f.Name())
-			}
+			// if f.Size() != 0 {
+			files = append(files, f.Name())
+			// }
 		}
 	}
 
