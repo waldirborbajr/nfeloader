@@ -10,7 +10,7 @@ import (
 	"github.com/emersion/go-message/charset"
 	"github.com/emersion/go-message/mail"
 	"github.com/rs/zerolog/log"
-	"github.com/waldirborbajr/nfeloader/pkg/config"
+	"github.com/waldirborbajr/nfeloader/internal/entity"
 )
 
 // CustomerImapClient Call NewImapClient
@@ -53,7 +53,7 @@ func pop(list *[]uint32) uint32 {
 	return lastEle
 }
 
-func NewMessage(path string, config *config.NFeConfig) error {
+func NewMessage(path string, config *entity.NFeConfig) error {
 	// Connect to mail server
 	c, err := CustomerImapClient(config.MailUsr, config.MailPwd, config.MailServer)
 	if err != nil {
