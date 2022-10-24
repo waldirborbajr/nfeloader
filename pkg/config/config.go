@@ -8,6 +8,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+var Verzion = "dev-4.2.0"
+
 type NFeConfig struct {
 	MailServer       string
 	MailUsr          string

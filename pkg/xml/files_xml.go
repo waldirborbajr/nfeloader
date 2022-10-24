@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/rs/zerolog/log"
-	"gitlab.com/waldirborbajr/nfeloader/pkg/customlog"
-	"gitlab.com/waldirborbajr/nfeloader/pkg/entity"
+	"github.com/waldirborbajr/nfeloader/pkg/customlog"
+	"github.com/waldirborbajr/nfeloader/pkg/entity"
 )
 
 // List all XMLs files and return a slice of files names

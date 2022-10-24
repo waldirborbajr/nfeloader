@@ -1,6 +1,6 @@
-module gitlab.com/waldirborbajr/nfeloader
+module github.com/waldirborbajr/nfeloader
 
-go 1.17
+go 1.19
 
 require (
 	github.com/emersion/go-imap v1.2.0

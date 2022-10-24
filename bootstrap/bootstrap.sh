@@ -9,10 +9,10 @@ docker pull waldirborbajr/nfeloader:latest
 # Start
 docker run -it \
 --name nfeloader \
--e MAIL_SERVER="mail.XPTOinformatica.com.br:993" \
--e MAIL_USR="waldir@XPTOinformatica.com.br" \
--e MAIL_PWD="#Senha_!@#_Mudar*" \
--e DATABASE_HOST="192.168.0.4:3306" \
+-e MAIL_SERVER="mail.XPTO.com.br:993" \
+-e MAIL_USR="waldir@XPTO.com.br" \
+-e MAIL_PWD="#Senha_@_Mudar*" \
+-e DATABASE_HOST="000.000.0.000:3306" \
 -e DATABASE_USR="root" \
 -e DATABASE_PWD="@----@" \
 -e DATABASE_NAME="nfeloader" \
@@ -21,6 +21,6 @@ docker run -it \
 -v $(pwd)/logs/:/app/logs/:rw \
 -v $(pwd)/xmls/:/app/xmls/:rw \
 --restart unless-stopped \
---add-host mail.XPTOinformatica.com.br:192.168.0.25 \
+--add-host mail.XPTO.com.br:000.000.0.000 \
 -d waldirborbajr/nfeloader:latest \
 /bin/sh

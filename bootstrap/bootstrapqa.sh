@@ -9,8 +9,8 @@ docker pull waldirborbajr/nfeloader:latest
 # Start
 docker run -it \
 --name nfeloaderqa \
--e MAIL_SERVER="mail.XPTOinformatica.com.br:993" \
--e MAIL_USR="waldir@XPTOinformatica.com.br" \
+-e MAIL_SERVER="mail.XPTO.com.br:993" \
+-e MAIL_USR="waldir@XPTO.com.br" \
 -e MAIL_PWD="#Senha_!@#_Mudar*" \
 -e DATABASE_HOST="192.168.0.4:3306" \
 -e DATABASE_USR="root" \
