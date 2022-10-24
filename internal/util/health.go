@@ -25,7 +25,7 @@ func Healthcheck(path string) string {
 
 			if err != nil {
 				hasErr = true
-				errMsg = errMsg + " "
+				errMsg += err + " "
 				continue
 
 			}
