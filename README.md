@@ -10,7 +10,7 @@ en: NF-e Loader {Load XML NF-e file to database}
 
 ptBR: NF-e Loader {Carrega o arquivo XML de NF-e para o banco de dados }
 
-Language: go 1.18
+Language: go 1.19
 
 ## Usage
 ```
