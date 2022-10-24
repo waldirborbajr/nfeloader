@@ -45,7 +45,6 @@ func init() {
 }
 
 func healthcheck(path string) {
-	// log.Println("HealthCheking")
 	log.Info().Msg("HealthCheking")
 
 	folders := []string{"xmls", "logs", "processed"}
@@ -105,7 +104,7 @@ func controledJob() {
 
 	log.Info().Msg("======================================================")
 	log.Info().Msgf("Server v%s pid=%d started with processes: %d",
-		version, os.Getpid(), runtime.GOMAXPROCS(runtime.NumCPU()))
+		config.Verzion, os.Getpid(), runtime.GOMAXPROCS(runtime.NumCPU()))
 
 	start := time.Now()
 	log.Info().Msgf("Starting NF-e Loader: %s", time.Now())
