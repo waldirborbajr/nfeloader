@@ -17,5 +17,6 @@
 .env
 **/logs
 **/xmls
+**/xmlerror
 **/processed
 **/nfeloader

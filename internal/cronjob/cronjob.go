@@ -77,23 +77,29 @@ func worker(wg *sync.WaitGroup, path string, file string, service *service.NFePr
 
 	nfeProc, err := xml.ReadXML(path, file)
 	if err != nil {
-		customlog.HandleError("Reading XML", err)
+		customlog.HandleError("Error processing [ "+file+"] :", err)
+
+		err = xml.MoveXML(config.AppPath, file, true)
+		if err != nil {
+			customlog.HandleError("Moving XML", err)
+		}
 	}
 
 	// Call service to save
 	if err = service.SaveNFe(nfeProc); err != nil {
 		customlog.HandleError("Saving NFe", err)
+	} else {
+		err = xml.MoveXML(config.AppPath, file, false)
+
+		if err != nil {
+			customlog.HandleError("Moving XML", err)
+		}
 	}
 
-	err = xml.MoveXML(config.AppPath, file)
-
-	if err != nil {
-		customlog.HandleError("Moving XML", err)
-	}
 }
 
 func RunCronJob() {
-	log.Info().Msg("\n🚀\n")
+	log.Info().Msg("🚀 CronJob")
 
 	tmz, _ := time.LoadLocation("America/Sao_Paulo")
 	// c := cron.New(cron.WithChain(cron.SkipIfStillRunning(logger)))

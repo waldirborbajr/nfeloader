@@ -12,7 +12,7 @@ var errMsg = ""
 func Healthcheck(path string) string {
 	log.Info().Msg("HealthCheking Folders [XMLS, LOGS & PROCESSED]")
 
-	folders := []string{"xmls", "logs", "processed"}
+	folders := []string{"xmls", "logs", "processed", "xmlerror"}
 
 	for _, folder := range folders {
 

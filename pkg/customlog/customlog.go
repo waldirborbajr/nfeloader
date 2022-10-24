@@ -11,7 +11,7 @@ func HandleError(activity string, err error) {
 		// notice that we're using 1, so it will actually log where
 		// the error happened, 0 = this function, we don't want that.
 		_, fn, line, _ := runtime.Caller(1)
-		log.Error().Msgf("%s \n [error] %s:%d %v", activity, fn, line, err)
+		log.Error().Msgf("%s [error] %s:%d %v", activity, fn, line, err)
 	}
 }
 

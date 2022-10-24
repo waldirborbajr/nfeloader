@@ -11,6 +11,7 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/waldirborbajr/nfeloader/internal/entity"
+	"github.com/waldirborbajr/nfeloader/pkg/config"
 	"github.com/waldirborbajr/nfeloader/pkg/customlog"
 )
 
@@ -29,16 +30,19 @@ func ListXML(path string) ([]string, error) {
 		ext := strings.ToUpper(filepath.Ext(f.Name()))
 
 		if ext == ".XML" {
-			// if f.Size() != 0 {
-			files = append(files, f.Name())
-			// }
+			if f.Size() != 0 {
+				files = append(files, f.Name())
+			} else {
+				err = MoveXML(config.AppPath, f.Name(), true)
+			}
+
 		}
 	}
 
 	return files, nil
 }
 
-// Read the content of a XML file and return a struct od content
+// Read the content of a XML file and return a struct of content
 func ReadXML(path string, file string) (*entity.NFeProc, error) {
 	f := fmt.Sprintf(path + file)
 
@@ -65,15 +69,20 @@ func ReadXML(path string, file string) (*entity.NFeProc, error) {
 }
 
 // Move XML file to processed folder
-func MoveXML(path string, file string) error {
+func MoveXML(path string, file string, hasError bool) error {
+	var err error
+
 	f := fmt.Sprintf(path + "/xmls/" + file)
-	// processed := fmt.Sprintf(path + "/processed/" + file)
+	processedPath := fmt.Sprintf(path + "/processed/" + file)
+	errorPath := fmt.Sprintf(path + "/xmlerror/" + file)
 
-	// log.Printf("F %v", f)
-	// log.Printf("Processed %v", processed)
+	if hasError {
+		err = os.Rename(f, errorPath)
+	} else {
+		err = os.Rename(f, processedPath)
+	}
 
-	// err := os.Rename(f, processed)
-	err := os.Remove(f)
+	// err := os.Remove(f)
 	if err != nil {
 		customlog.HandleError("Renaming XML", err)
 		return err

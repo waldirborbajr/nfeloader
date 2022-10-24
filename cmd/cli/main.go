@@ -13,7 +13,6 @@ import (
 )
 
 func init() {
-	log.Info().Msg(".\n")
 	log.Info().Msg("Starting NFeLoader " + config.Verzion + "\n")
 
 	config.AppPath, config.Err = os.Getwd()
