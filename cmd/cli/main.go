@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"sync"
 
 	"github.com/rs/zerolog/log"
 
@@ -11,8 +10,6 @@ import (
 	"github.com/waldirborbajr/nfeloader/internal/util"
 	"github.com/waldirborbajr/nfeloader/pkg/config"
 	"github.com/waldirborbajr/nfeloader/pkg/customlog"
-	"github.com/waldirborbajr/nfeloader/pkg/service"
-	"github.com/waldirborbajr/nfeloader/pkg/xml"
 )
 
 func init() {
@@ -29,31 +26,7 @@ func init() {
 
 	config.Cfg = config.BuildConfig()
 
-	config.DBcon = dsn()
-}
-
-func dsn() string {
-	return config.MysqlUrl(config.Cfg)
-}
-
-func worker(wg *sync.WaitGroup, path string, file string, service *service.NFeProcService) {
-	defer wg.Done()
-
-	nfeProc, err := xml.ReadXML(path, file)
-	if err != nil {
-		customlog.HandleError("Reading XML", err)
-	}
-
-	// Call service to save
-	if err = service.SaveNFe(nfeProc); err != nil {
-		customlog.HandleError("Saving NFe", err)
-	}
-
-	err = xml.MoveXML(config.AppPath, file)
-
-	if err != nil {
-		customlog.HandleError("Moving XML", err)
-	}
+	config.DBcon = util.Dsn()
 }
 
 func main() {

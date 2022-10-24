@@ -18,7 +18,7 @@ import (
 	"github.com/waldirborbajr/nfeloader/pkg/xml"
 )
 
-func RunNoCronJob() {
+func mainJob() {
 	// telegramAPI := telegram.NewAPI(cfg.TelegramChatID, cfg.TelegramBotToken)
 
 	// var xmlFiles []string
@@ -59,7 +59,7 @@ func RunNoCronJob() {
 
 	if len(xmlFiles) != 0 {
 		log.Info().Msgf("Found %d XML(s) file(s)", len(xmlFiles))
-		db, dbErr := sql.Open("mysql", dbcon)
+		db, dbErr := sql.Open("mysql", config.DBcon)
 		if dbErr != nil {
 			customlog.HandleError("Opening database connection", dbErr)
 		} else {
@@ -85,6 +85,26 @@ func RunNoCronJob() {
 	log.Info().Msgf("Elapsed time  %s", time.Since(start))
 }
 
+func worker(wg *sync.WaitGroup, path string, file string, service *service.NFeProcService) {
+	defer wg.Done()
+
+	nfeProc, err := xml.ReadXML(path, file)
+	if err != nil {
+		customlog.HandleError("Reading XML", err)
+	}
+
+	// Call service to save
+	if err = service.SaveNFe(nfeProc); err != nil {
+		customlog.HandleError("Saving NFe", err)
+	}
+
+	err = xml.MoveXML(config.AppPath, file)
+
+	if err != nil {
+		customlog.HandleError("Moving XML", err)
+	}
+}
+
 func RunCronJob() {
 	log.Info().Msg("\n🚀\n")
 
@@ -93,11 +113,11 @@ func RunCronJob() {
 
 	cr := cron.New(cron.WithLocation(tmz))
 
-	log.Info().Msgf("Cronjob: %s", cfg.Schedule)
+	log.Info().Msgf("Cronjob: %s", config.Cfg.Schedule)
 
-	sched := fmt.Sprintf("@every %s", cfg.Schedule)
+	sched := fmt.Sprintf("@every %s", config.Cfg.Schedule)
 
-	cr.AddFunc(sched, controledJob)
+	cr.AddFunc(sched, mainJob)
 
 	cr.Start()
 
