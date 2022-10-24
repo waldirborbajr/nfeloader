@@ -6,25 +6,19 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog/log"
+	"github.com/waldirborbajr/nfeloader/internal/entity"
 )
 
-var Verzion = "dev-4.2.0"
+var (
+	Verzion = "dev-4.2.0"
+	DBcon   string
+	Err     error
+	Cfg     *entity.NFeConfig
+	AppPath string
+)
 
-type NFeConfig struct {
-	MailServer       string
-	MailUsr          string
-	MailPwd          string
-	DatabaseHost     string
-	DatabaseUsr      string
-	DatabasePwd      string
-	DatabaseDbName   string
-	TelegramChatID   string
-	TelegramBotToken string
-	Schedule         string
-}
-
-func BuildConfig() *NFeConfig {
-	cfg := &NFeConfig{}
+func BuildConfig() *entity.NFeConfig {
+	cfg := &entity.NFeConfig{}
 
 	isContainer, _ := strconv.ParseBool(os.Getenv("CONTAINER"))
 

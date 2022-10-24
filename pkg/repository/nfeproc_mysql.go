@@ -4,8 +4,8 @@ import (
 	"database/sql"
 
 	"github.com/rs/zerolog/log"
+	"github.com/waldirborbajr/nfeloader/internal/entity"
 	"github.com/waldirborbajr/nfeloader/pkg/customlog"
-	"github.com/waldirborbajr/nfeloader/pkg/entity"
 )
 
 type NFeProcRepositoryMysql struct {

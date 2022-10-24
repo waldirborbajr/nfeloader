@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/waldirborbajr/nfeloader/pkg/entity"
+	"github.com/waldirborbajr/nfeloader/internal/entity"
 )
 
 type NFeProcService struct {
