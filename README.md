@@ -1,5 +1,9 @@
 # NFeLoader
 
+[![📬 Typo Check](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml)
+[![🙏🏻 Lint Test](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml)
+
+
 <p>
 <img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="120", height="120"/>
 </p>
