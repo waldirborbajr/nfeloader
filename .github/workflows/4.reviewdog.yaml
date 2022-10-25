@@ -1,4 +1,4 @@
-name: 🐕 Review DOG
+name: Review DOG
 
 on:
   repository_dispatch:

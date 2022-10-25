@@ -1,4 +1,4 @@
-name: 📬 Typo Check
+name: Typo Check
 
 on:
   push:
