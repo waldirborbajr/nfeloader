@@ -1,7 +1,7 @@
 # NFeLoader
 
 <p>
-<img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="120", heigth="120"/>
+<img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="120", height="120"/>
 </p>
 
 ## B+ Tech·​nol·​o·​gy
@@ -10,7 +10,7 @@ en: NF-e Loader {Load XML NF-e file to database}
 
 ptBR: NF-e Loader {Carrega o arquivo XML de NF-e para o banco de dados }
 
-Language: go 1.18
+Language: go 1.19
 
 ## Usage
 ```

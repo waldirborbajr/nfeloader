@@ -1,7 +1,7 @@
 # ---------------
 # -- 1st Stage
 
-FROM golang:1.17-alpine3.13 AS build
+FROM golang:1.19-alpine AS build
 
 WORKDIR /go/src/app
 
@@ -26,7 +26,7 @@ FROM alpine:3.13
 ENV PATH=/app/:$PATH
 
 LABEL maintainer="Waldir Borba Junior <wborbajr@gmail.com>" \
-  version="v0.1.1-2022" \
+  version="v0.4.2-2022" \
   description="NFe Loader | waldirborbajr/nfeloader:latest"
 
 ENV LANG=en_US.UTF-8 \
@@ -41,7 +41,7 @@ RUN apk add --update --no-cache \
 
 RUN adduser -S -D -H -h /app nfe
 
-USER nfe 
+USER nfe
 
 WORKDIR /app
 
