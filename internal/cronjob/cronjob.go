@@ -10,12 +10,12 @@ import (
 
 	"github.com/robfig/cron/v3"
 	"github.com/rs/zerolog/log"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/config"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/customlog"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/mail"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/repository"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/service"
-	"github.com/waldirborbajr/nfeloader/internal/pkg/xml"
+	"github.com/waldirborbajr/nfeloader/internal/config"
+	"github.com/waldirborbajr/nfeloader/internal/customlog"
+	"github.com/waldirborbajr/nfeloader/internal/mail"
+	"github.com/waldirborbajr/nfeloader/internal/repository"
+	"github.com/waldirborbajr/nfeloader/internal/service"
+	"github.com/waldirborbajr/nfeloader/internal/xml"
 )
 
 var wg sync.WaitGroup
