@@ -98,6 +98,8 @@ func NewMessage(path string, config *entity.NFeConfig) error {
 				// The reason is that the format of the email sent by the other party is not standardized, and the analysis fails
 				// 相关的issue: https://github.com/emersion/go-imap/issues/143
 				// log.Error().Msgf(seqset, err)
+
+				log.Info().Msg(err.Error())
 			}
 		}()
 

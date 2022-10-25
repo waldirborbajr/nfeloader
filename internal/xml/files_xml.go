@@ -36,9 +36,10 @@ func ListXML(path string) ([]string, error) {
 			if fileInfo.Size() != 0 {
 				files = append(files, f.Name())
 			} else {
-				err = MoveXML(config.AppPath, f.Name(), true)
+				if err = MoveXML(config.AppPath, f.Name(), true); err != nil {
+					customlog.HandleError("ZERO Size Erro Moving", err)
+				}
 			}
-
 		}
 	}
 
