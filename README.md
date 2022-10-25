@@ -1,7 +1,11 @@
 # NFeLoader
 
+
 [![📬 Typo Check](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml)
 [![🙏🏻 Lint Test](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml)
+[![🚨 CodeQL Analysis](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml)
+[![🐕 Review DOG](https://github.com/waldirborbajr/nfeloader/actions/workflows/4.reviewdog.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/4.reviewdog.yaml)
+[![🔨 Build and Test](https://github.com/waldirborbajr/nfeloader/actions/workflows/5.build-test.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/5.build-test.yaml)
 
 
 <p>

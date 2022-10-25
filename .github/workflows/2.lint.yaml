@@ -17,6 +17,9 @@ jobs:
   golangci:
     name: lint
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v3
@@ -25,12 +28,31 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: golangci-lint
+    # - name: golangci-lint
+    #   uses: golangci/golangci-lint-action@v3
+    #   with:
+    #     version: latest
+    #     args: "--out-${NO_FUTURE}format colored-line-number"
+
+    - name: Go Lint Standard
+      if: runner.os != 'Windows'
       uses: golangci/golangci-lint-action@v3
       with:
         version: latest
         args: "--out-${NO_FUTURE}format colored-line-number"
+        skip-pkg-cache: true
+        skip-build-cache: true
 
+    - name: Go Lint Windows
+      if: runner.os == 'Windows'
+      uses: golangci/golangci-lint-action@v3
+      env:
+        outformat: out-format
+      with:
+        version: latest
+        args: "--%outformat% colored-line-number"
+        skip-pkg-cache: true
+        skip-build-cache: true
 
     - name: Trigger CodeQL
       if: success()
