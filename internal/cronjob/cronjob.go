@@ -65,7 +65,7 @@ func mainJob() {
 			for _, file := range xmlFiles {
 				wg.Add(1)
 				semaphore <- struct{}{}
-				go worker(path, file, service, semaphore)
+				go processXMLFile(path, file, service, semaphore)
 
 			}
 
@@ -77,7 +77,7 @@ func mainJob() {
 	log.Info().Msgf("Elapsed time  %s", time.Since(start))
 }
 
-func worker(path string, file string, service *service.NFeProcService, semaphore <-chan struct{}) {
+func processXMLFile(path string, file string, service *service.NFeProcService, semaphore <-chan struct{}) {
 	defer wg.Done()
 
 	nfeProc, err := xml.ReadXML(path, file)

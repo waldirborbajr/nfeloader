@@ -73,7 +73,7 @@ func MoveXML(path string, file string, hasError bool) error {
 	var err error
 
 	f := fmt.Sprintf(path + "/xmls/" + file)
-	processedPath := fmt.Sprintf(path + "/processed/" + file)
+	processedPath := fmt.Sprintf(path + "/xmlprocessed/" + file)
 	errorPath := fmt.Sprintf(path + "/xmlerror/" + file)
 
 	if hasError {
