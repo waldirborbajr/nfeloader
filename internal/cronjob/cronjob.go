@@ -117,7 +117,10 @@ func RunCronJob() {
 
 	sched := fmt.Sprintf("@every %s", config.Cfg.Schedule)
 
-	cr.AddFunc(sched, mainJob)
+	_, err := cr.AddFunc(sched, mainJob)
+	if err != nil {
+		log.Info().Msgf("Error -> Cronjob: AddFunc")
+	}
 
 	cr.Start()
 

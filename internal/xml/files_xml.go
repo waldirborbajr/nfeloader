@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -19,7 +18,7 @@ import (
 func ListXML(path string) ([]string, error) {
 	var files []string
 
-	xmlFiles, err := ioutil.ReadDir(path)
+	xmlFiles, err := os.ReadDir(path)
 	if err != nil {
 		customlog.HandleError("Reading directory", err)
 
@@ -30,7 +29,11 @@ func ListXML(path string) ([]string, error) {
 		ext := strings.ToUpper(filepath.Ext(f.Name()))
 
 		if ext == ".XML" {
-			if f.Size() != 0 {
+			fileInfo, err := f.Info()
+			if err != nil {
+				customlog.HandleError("file.Info()", err)
+			}
+			if fileInfo.Size() != 0 {
 				files = append(files, f.Name())
 			} else {
 				err = MoveXML(config.AppPath, f.Name(), true)
