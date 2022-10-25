@@ -8,18 +8,17 @@ builds:
       - linux
       - darwin
       - windows
+      - freebsd
     goarch:
       - amd64
       - arm64
     ignore:
-      - goos: darwin
-        goarch: 386
-      - goos: linux
-        goarch: arm
-        goarm: 7
-      - goarm: mips64
-      - gomips: hardfloat
-      - goamd64: v4
+      - goarch: arm
+        goos: windows
+      - goarch: arm64
+        goos: freebsd
+      - goarch: arm64
+        goos: windows
     mod_timestamp: '{{ .CommitTimestamp }}'
     flags:
       - -trimpath
@@ -31,8 +30,11 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/config.Date={{ .CommitDate }}
       - -X github.com/waldirborbajr/nfeloader/internal/config.BuiltBy=goreleaser
 
+# checksum:
+#   name_template: 'checksums.txt'
 checksum:
-  name_template: 'checksums.txt'
+  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
 snapshot:
   name_template: '{{ incpatch .Version }}-next'
 
@@ -70,6 +72,9 @@ archives:
       darwin: Darwin
       linux: Linux
       amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
     files:
       - src: license*
       - src: LICENSE*
