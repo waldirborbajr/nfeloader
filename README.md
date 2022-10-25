@@ -1,7 +1,7 @@
 # NFeLoader
 
 <p>
-<img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="120", heigth="120"/>
+<img alt="NF-e Logo" src="https://github.com/waldirborbajr/nfeloader/blob/main/assets/nfe.png" width="120", height="120"/>
 </p>
 
 ## B+ Tech·​nol·​o·​gy

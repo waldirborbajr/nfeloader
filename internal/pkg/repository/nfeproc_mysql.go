@@ -344,7 +344,7 @@ func (n *NFeProcRepositoryMysql) SaveNFe(nfeProc *entity.NFeProc) error {
 		}
 
 		if _, err = stmt.Exec(nNF); err != nil {
-			customlog.HandleError("Excuting delete NFeDetalhe", err)
+			customlog.HandleError("Executing delete NFeDetalhe", err)
 			return err
 		}
 	}

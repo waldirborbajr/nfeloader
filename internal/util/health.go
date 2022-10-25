@@ -10,7 +10,7 @@ var hasErr = false
 var errMsg = ""
 
 func Healthcheck(path string) string {
-	log.Info().Msg("HealthCheking Folders")
+	log.Info().Msg("HealthChecking Folders")
 
 	folders := []string{"xmls", "logs", "xmlprocessed", "xmlerror"}
 
