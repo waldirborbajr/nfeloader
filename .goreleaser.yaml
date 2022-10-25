@@ -1,5 +1,9 @@
 project_name: nfeloader
 
+before:
+  hooks:
+    - go mod tidy
+
 builds:
   - main: ./cmd/cli
     env:
@@ -72,6 +76,7 @@ archives:
       darwin: Darwin
       linux: Linux
       amd64: x86_64
+      windows: Windows
     format_overrides:
       - goos: windows
         format: zip
