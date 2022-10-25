@@ -2,7 +2,6 @@ package mail
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/emersion/go-imap"
@@ -59,12 +58,12 @@ func NewMessage(path string, config *entity.NFeConfig) error {
 	if err != nil {
 		return err
 	}
-	// Don't forget to logout
-	defer c.Logout()
-
-	if err != nil {
-		return err
-	}
+	// // Don't forget to logout
+	// defer c.Logout()
+	//
+	// if err != nil {
+	// 	return err
+	// }
 
 	// Select inbox
 	_, err = c.Select("INBOX", false)
@@ -154,7 +153,7 @@ func NewMessage(path string, config *entity.NFeConfig) error {
 				}
 				if filename != "" {
 					log.Info().Msg("Got attachment: ")
-					b, _ := ioutil.ReadAll(p.Body)
+					b, _ := io.ReadAll(p.Body)
 					file, _ := os.OpenFile(path+filename, os.O_RDWR|os.O_CREATE, os.ModePerm)
 					defer file.Close()
 					_, err := file.Write(b)
@@ -165,5 +164,11 @@ func NewMessage(path string, config *entity.NFeConfig) error {
 			}
 		}
 	}
+
+	// Don't forget to logout
+	if err := c.Logout(); err != nil {
+		return err
+	}
+
 	return nil
 }
