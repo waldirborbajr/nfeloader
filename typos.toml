@@ -1,0 +1,7 @@
+[files]
+extend-exclude = [
+  "/internal/telegram/telegram.go",
+  "/internal/entity/nfeproc.go",
+  "/internal/repository/nfeproc_mysql.go",
+  "/docker-init/database/nfeloader.sql",
+]
