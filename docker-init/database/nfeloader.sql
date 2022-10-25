@@ -88,8 +88,8 @@ CREATE TABLE `nfe` (
   `transp_xEnder` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
   `transp_xMun` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
   `transp_UF` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
-  `transp_marca` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
   `transp_qVol` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
+  `transp_marca` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
   `transp_nVol` varchar(100) DEFAULT NULL COMMENT 'Transportadora',
   `transp_pesoL` varchar(100) DEFAULT NULL COMMENT 'transp_pesoL',
   `transp_pesoB` varchar(100) DEFAULT NULL COMMENT 'transp_pesoB',
@@ -152,6 +152,5 @@ CREATE TABLE `nfedetalhe` (
   `det_COFINS_vCOFINS` varchar(100) DEFAULT NULL COMMENT 'COFINS do Produto',
   `det_infAdProd` varchar(300) DEFAULT NULL COMMENT 'Informacao Adicional do Produto',
   PRIMARY KEY (`id`),
-  KEY `nNF` (`nNF`),
-  -- CONSTRAINT `nfedetalhe_ibfk_1` FOREIGN KEY (`nNF`) REFERENCES `nfe` (`ide_nNF`) ON DELETE CASCADE
+  KEY `nNF` (`nNF`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
