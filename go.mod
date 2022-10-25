@@ -3,7 +3,7 @@ module github.com/waldirborbajr/nfeloader
 go 1.19
 
 require (
-	github.com/emersion/go-imap v1.2.0
+	github.com/emersion/go-imap v1.2.1
 	github.com/emersion/go-message v0.16.0
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/joho/godotenv v1.4.0
