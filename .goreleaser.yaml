@@ -76,6 +76,7 @@ archives:
       darwin: Darwin
       linux: Linux
       amd64: x86_64
+      freebsd: FreeBSD
       windows: Windows
     format_overrides:
       - goos: windows
