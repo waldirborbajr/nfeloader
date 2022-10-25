@@ -18,6 +18,8 @@ import (
 	"github.com/waldirborbajr/nfeloader/pkg/xml"
 )
 
+var wg sync.WaitGroup
+
 func mainJob() {
 	// var xmlFiles []string
 	path := config.AppPath + "/xmls/"
@@ -58,12 +60,15 @@ func mainJob() {
 			repositoryMysql := repository.NewNFeProcMysql(db)
 			service := service.NewNFeProcService(repositoryMysql)
 
-			wg := &sync.WaitGroup{}
+			semaphore := make(chan struct{}, 20)
+
 			for _, file := range xmlFiles {
 				wg.Add(1)
-				go worker(wg, path, file, service)
+				semaphore <- struct{}{}
+				go worker(path, file, service, semaphore)
 
 			}
+
 			wg.Wait()
 		}
 	}
@@ -72,11 +77,12 @@ func mainJob() {
 	log.Info().Msgf("Elapsed time  %s", time.Since(start))
 }
 
-func worker(wg *sync.WaitGroup, path string, file string, service *service.NFeProcService) {
+func worker(path string, file string, service *service.NFeProcService, semaphore <-chan struct{}) {
 	defer wg.Done()
 
 	nfeProc, err := xml.ReadXML(path, file)
 	if err != nil {
+		<-semaphore
 		customlog.HandleError("Error processing [ "+file+"] :", err)
 
 		err = xml.MoveXML(config.AppPath, file, true)
@@ -87,6 +93,7 @@ func worker(wg *sync.WaitGroup, path string, file string, service *service.NFePr
 
 	// Call service to save
 	if err = service.SaveNFe(nfeProc); err != nil {
+		<-semaphore
 		customlog.HandleError("Saving NFe", err)
 	} else {
 		err = xml.MoveXML(config.AppPath, file, false)
@@ -95,6 +102,7 @@ func worker(wg *sync.WaitGroup, path string, file string, service *service.NFePr
 			customlog.HandleError("Moving XML", err)
 		}
 	}
+	<-semaphore
 
 }
 
@@ -102,7 +110,6 @@ func RunCronJob() {
 	log.Info().Msg("🚀 CronJob")
 
 	tmz, _ := time.LoadLocation("America/Sao_Paulo")
-	// c := cron.New(cron.WithChain(cron.SkipIfStillRunning(logger)))
 
 	cr := cron.New(cron.WithLocation(tmz))
 

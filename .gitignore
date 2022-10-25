@@ -18,5 +18,7 @@
 **/logs
 **/xmls
 **/xmlerror
-**/processed
+**/xmlprocessed
 **/nfeloader
+**/.DS_Store
+
