@@ -73,7 +73,6 @@ func ReadXML(path string, file string) (*entity.NFeProc, error) {
 
 // Move XML file to processed folder
 func MoveXML(path string, file string, hasError bool) error {
-	// nolint:staticcheck
 	var err error
 
 	f := fmt.Sprintf(path + "/xmls/" + file)
