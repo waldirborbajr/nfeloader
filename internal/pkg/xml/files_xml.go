@@ -11,8 +11,8 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/waldirborbajr/nfeloader/internal/entity"
-	"github.com/waldirborbajr/nfeloader/pkg/config"
-	"github.com/waldirborbajr/nfeloader/pkg/customlog"
+	"github.com/waldirborbajr/nfeloader/internal/pkg/config"
+	"github.com/waldirborbajr/nfeloader/internal/pkg/customlog"
 )
 
 // List all XMLs files and return a slice of files names

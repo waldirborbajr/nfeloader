@@ -7,9 +7,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/waldirborbajr/nfeloader/internal/cronjob"
+	"github.com/waldirborbajr/nfeloader/internal/pkg/config"
+	"github.com/waldirborbajr/nfeloader/internal/pkg/customlog"
 	"github.com/waldirborbajr/nfeloader/internal/util"
-	"github.com/waldirborbajr/nfeloader/pkg/config"
-	"github.com/waldirborbajr/nfeloader/pkg/customlog"
 )
 
 func init() {
