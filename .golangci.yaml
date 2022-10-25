@@ -8,13 +8,13 @@ output:
   # Example: "checkstyle:report.json,colored-line-number"
   #
   # Default: colored-line-number
-  format: line-number
+  format: colored-line-number
   # Print lines of code with issue.
   # Default: true
   print-issued-lines: true
   # Print linter name in the end of issue text.
   # Default: true
-  print-linter-name: false
+  print-linter-name: true
   # Make issues output unique by line.
   # Default: true
   uniq-by-line: false
@@ -22,4 +22,4 @@ output:
   # Default is no prefix.
   path-prefix: ""
   # Sort results by: filepath, line and column.
-  sort-results: false
+  sort-results: true
