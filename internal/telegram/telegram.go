@@ -33,7 +33,7 @@ type reqBody struct {
 // SendMessage ...
 func (api *API) SendMessage(text string) {
 	// odd numbers of "_" break Telegram parser in "markdown" mode
-	// so let's workarund it
+	// so let's workaround it
 	text = strings.Replace(text, "_", "\\_", -1)
 
 	req := &reqBody{
