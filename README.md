@@ -1,6 +1,5 @@
 # NFeLoader
 
-
 [![Typo Check](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml)
 [![Lint](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml)
 [![CodeQL](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml)

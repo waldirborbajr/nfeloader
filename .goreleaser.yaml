@@ -4,8 +4,13 @@ builds:
   - main: ./cmd/cli
     env:
       - CGO_ENABLED=0
-    goos: [ linux, darwin, windows ]
-    goarch: [ amd64, arm64 ]
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
     ignore:
       - goos: darwin
         goarch: 386
@@ -20,8 +25,11 @@ builds:
       - -trimpath
     ldflags:
       - -s -w
-      - -X github.com/waldirborbajr/internal/config.Verzion={{.Version}}
-      - -X github.com/waldirborbajr/kvstok/pkg/config.Revizio={{.ShortCommit}}
+      - -X github.com/waldirborbajr/nfeloader/internal/config.Verzion={{.Version}}
+      - -X github.com/waldirborbajr/nfeloader/internal/config.Revizion={{.ShortCommit}}
+      - -X github.com/waldirborbajr/nfeloader/internal/config.Commit={{ .Commit }}
+      - -X github.com/waldirborbajr/nfeloader/internal/config.Date={{ .CommitDate }}
+      - -X github.com/waldirborbajr/nfeloader/internal/config.BuiltBy=goreleaser
 
 checksum:
   name_template: 'checksums.txt'
@@ -57,15 +65,24 @@ changelog:
       order: 9999
 
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  - name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     replacements:
       darwin: Darwin
       linux: Linux
       amd64: x86_64
     files:
-      - README.md
-      - LICENSE*
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
     wrap_in_directory: true
+
 release:
   prerelease: auto
+  footer: |
+    **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
+    ---
+    _Released with [GoReleaser](https://goreleaser.com/)!_
 
