@@ -10,13 +10,10 @@ COPY go.sum .
 
 RUN go mod tidy
 
-# RUN go env
-
 COPY . .
 
 # Build the binary.
-# RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -installsuffix cgo -trimpath -o ./bin/nfeloader main.go
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
 
 # ---------------
 # -- 2nd Stage

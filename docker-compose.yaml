@@ -11,6 +11,8 @@ services:
       dockerfile: ${PWD}/docker/Dockerfile
     volumes:
       - ${PWD}/xmls:/app/xmls:rw
+      - ${PWD}/xmlprocessed:/app/xmlprocessed:rw
+      - ${PWD}/xmlerror:/app/xmlerror:rw
     working_dir: /app
     init: true
     restart: on-failure
