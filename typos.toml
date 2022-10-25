@@ -4,4 +4,5 @@ extend-exclude = [
   "/internal/entity/nfeproc.go",
   "/internal/repository/nfeproc_mysql.go",
   "/docker-init/database/nfeloader.sql",
+  "/internal/services/quotation.go",
 ]
