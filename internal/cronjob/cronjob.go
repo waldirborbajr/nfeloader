@@ -43,7 +43,7 @@ func mainJob() {
 
 	xmlFiles, err := xml.ListXML(path)
 	if err != nil {
-		customlog.HandleError("Listing XML", mErr)
+		customlog.HandleError("Listing XML %v", err)
 	}
 
 	if len(xmlFiles) != 0 {
