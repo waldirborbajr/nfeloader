@@ -1,19 +1,19 @@
 # ---------------
 # -- 1st Stage
 
-FROM golang:1.19-alpine AS build
-
-WORKDIR /go/src/app
-
-COPY go.mod .
-COPY go.sum .
-
-RUN go mod tidy
-
-COPY . .
+# FROM golang:1.19-alpine AS build
+#
+# WORKDIR /go/src/app
+#
+# COPY go.mod .
+# COPY go.sum .
+#
+# RUN go mod tidy
+#
+# COPY . .
 
 # Build the binary.
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
+# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
 
 # ---------------
 # -- 2nd Stage
@@ -42,10 +42,12 @@ USER nfe
 
 WORKDIR /app
 
-COPY --from=build /go/src/app/run.sh run.sh
-COPY --from=build /go/src/app/bin/nfeloader nfeloader
+# COPY --from=build /go/src/app/run.sh run.sh
+# COPY --from=build /go/src/app/bin/nfeloader nfeloader
 
-RUN chmod u+x run.sh
+# RUN chmod u+x run.sh
+
+COPY nfeloader /app
 
 ENTRYPOINT ["/app/nfeloader"]
 
