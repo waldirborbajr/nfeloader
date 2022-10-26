@@ -45,6 +45,8 @@ WORKDIR /app
 COPY --from=build /go/src/app/run.sh run.sh
 COPY --from=build /go/src/app/bin/nfeloader nfeloader
 
+RUN chmod u+x run.sh
+
 ENTRYPOINT ["/app/nfeloader"]
 
 CMD ["/bin/sh"]
