@@ -5,12 +5,17 @@ on:
     tags:
       - 'v*'
 
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
     # permissions:
     #   contents: read
     #   packages: write
+      # id-token: write
 
     steps:
       - name: Checkout
@@ -30,10 +35,11 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
           # password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
 
