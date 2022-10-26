@@ -46,6 +46,30 @@ func ListXML(path string) ([]string, error) {
 	return files, nil
 }
 
+func moveFile(sourcePath, destPath string) error {
+	inputFile, err := os.Open(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Couldn't open source file: %s", err)
+	}
+	outputFile, err := os.Create(destPath)
+	if err != nil {
+		inputFile.Close()
+		return fmt.Errorf("Couldn't open dest file: %s", err)
+	}
+	defer outputFile.Close()
+	_, err = io.Copy(outputFile, inputFile)
+	inputFile.Close()
+	if err != nil {
+		return fmt.Errorf("Writing to output file failed: %s", err)
+	}
+	// The copy was successful, so now delete the original file
+	err = os.Remove(sourcePath)
+	if err != nil {
+		return fmt.Errorf("Failed removing original file: %s", err)
+	}
+	return nil
+}
+
 // Read the content of a XML file and return a struct of content
 func ReadXML(path string, file string) (*entity.NFeProc, error) {
 	f := fmt.Sprintf(path + file)
@@ -81,9 +105,9 @@ func MoveXML(path string, file string, hasError bool) error {
 	errorPath := fmt.Sprintf(path + "/xmlerror/" + file)
 
 	if hasError {
-		err = os.Rename(f, errorPath)
+		err = moveFile(f, errorPath)
 	} else {
-		err = os.Rename(f, processedPath)
+		err = moveFile(f, processedPath)
 	}
 
 	// err := os.Remove(f)

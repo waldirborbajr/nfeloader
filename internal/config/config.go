@@ -27,7 +27,7 @@ func BuildConfig() *entity.NFeConfig {
 	if !isContainer {
 		err := godotenv.Load()
 		if err != nil {
-			log.Info().Msgf("ERROR: loading .env file: %v", err)
+			log.Info().Msgf("ERR0R: loading .env file: %v", err)
 		}
 	}
 

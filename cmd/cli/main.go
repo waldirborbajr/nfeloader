@@ -12,7 +12,7 @@ import (
 	"github.com/waldirborbajr/nfeloader/internal/util"
 )
 
-func init() {
+func main() {
 	log.Info().Msg("Starting NFeLoader " + config.Verzion + "\n")
 
 	config.AppPath, config.Err = os.Getwd()
@@ -26,8 +26,6 @@ func init() {
 	config.Cfg = config.BuildConfig()
 
 	config.DBcon = util.Dsn()
-}
 
-func main() {
 	cronjob.RunCronJob()
 }
