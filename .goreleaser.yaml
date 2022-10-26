@@ -40,10 +40,11 @@ docker_manifests:
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
-
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
 
 builds:
   - main: ./cmd/cli
@@ -75,8 +76,6 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/config.Date={{ .CommitDate }}
       - -X github.com/waldirborbajr/nfeloader/internal/config.BuiltBy=goreleaser
 
-# checksum:
-#   name_template: 'checksums.txt'
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
@@ -136,11 +135,8 @@ release:
   footer: |
     ## Binary Release
     **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
-
     _Released with [GoReleaser](https://goreleaser.com/)!_
-
     ---
-
     ## Docker Images
     - `waldirborbajr/nfeloader:latest`
     - `waldirborbajr/nfeloader:{{ .Tag }}`

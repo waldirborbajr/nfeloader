@@ -6,21 +6,16 @@ on:
       - 'v*'
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
 
 # permissions:
-#   contents: write
+#   contents: read
 #   id-token: write
 #   packages: write
 
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: read
-    #   packages: write
-      # id-token: write
 
     steps:
       - name: Checkout
@@ -49,7 +44,6 @@ jobs:
           go-version: ">=1.19.0"
           cache: true
       - run: go test -v -cover -race -timeout 60s ./...
-      # - run: go test -v ./...
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
