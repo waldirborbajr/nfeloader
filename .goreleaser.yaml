@@ -6,7 +6,7 @@ before:
 
 dockers:
 - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64"]
-  dockerfile: ./docker-prod/Dockerfile
+  dockerfile: Dockerfile
   use: buildx
   build_flag_templates:
   - --platform=linux/amd64
@@ -60,7 +60,6 @@ dockers:
 
 docker_manifests:
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
-- name_template: waldirborbajr/nfeloader:latest
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
