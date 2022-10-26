@@ -22,10 +22,11 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 README.md
-LICENSE
+LICENSE*
 **/infra
 **/logs/nfeloader.log
-**/processed
+**/xmlprocessed
+**/xmlerror
 **/xmls
 **/pocs
 **/errors
@@ -37,3 +38,4 @@ LICENSE
 **/POC
 **/Makefile
 **/cicd
+**/scripts
