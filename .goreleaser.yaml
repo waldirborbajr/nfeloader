@@ -4,6 +4,75 @@ before:
   hooks:
     - go mod tidy
 
+docker_manifests:
+- name_template: waldirborbajr/nfeloader:latest
+  image_templates:
+  - waldirborbajr/nfeloader:{{.Tag}}-amd64
+  - waldirborbajr/nfeloader:{{.Tag}}-arm64
+- name_template: waldirborbajr/nfeloader-image:latest
+  image_templates:
+  - waldirborbajr/nfeloader-image:{{.Tag}}-amd64
+  - waldirborbajr/nfeloader-image:{{.Tag}}-arm64
+- name_template: waldirborbajr/nfeloader:{{.Tag}}
+  image_templates:
+  - waldirborbajr/nfeloader:{{.Tag}}-amd64
+  - waldirborbajr/nfeloader:{{.Tag}}-arm64
+- name_template: waldirborbajr/nfeloader-image:{{.Tag}}
+  image_templates:
+  - waldirborbajr/nfeloader-image:{{.Tag}}-amd64
+  - waldirborbajr/nfeloader-image:{{.Tag}}-arm64
+dockers:
+- use: buildx
+  goos: linux
+  goarch: amd64
+  image_templates:
+  - waldirborbajr/nfeloader:{{ .Tag }}-amd64
+  build_flag_templates:
+  - "--build-arg=APPVERSION={{.ShortCommit}}"
+  - "--platform=linux/amd64"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+- use: buildx
+  goos: linux
+  goarch: arm64
+  image_templates:
+  - waldirborbajr/nfeloader:{{ .Tag }}-arm64
+  build_flag_templates:
+  - "--build-arg=APPVERSION={{.ShortCommit}}"
+  - "--platform=linux/arm64"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+- use: buildx
+  dockerfile: ./docker-prod/Dockerfile
+  goos: linux
+  goarch: amd64
+  image_templates:
+  - waldirborbajr/nfeloader-image:{{ .Tag }}-amd64
+  extra_files:
+  - envoy/
+  build_flag_templates:
+  - "--build-arg=APPVERSION={{.ShortCommit}}"
+  - "--platform=linux/amd64"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+- use: buildx
+  dockerfile: ./docker-prod/Dockerfile
+  goos: linux
+  goarch: arm64
+  image_templates:
+  - waldirborbajr/nfeloader-image:{{ .Tag }}-arm64
+  extra_files:
+  - envoy/
+  build_flag_templates:
+  - "--build-arg=APPVERSION={{.ShortCommit}}"
+  - "--platform=linux/arm64"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+
 builds:
   - main: ./cmd/cli
     env:
@@ -93,7 +162,13 @@ archives:
 release:
   prerelease: auto
   footer: |
+    ## Binary Release
     **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
     ---
     _Released with [GoReleaser](https://goreleaser.com/)!_
 
+    ## Docker Images
+    - `waldirborbajr/nfeloader:latest`
+    - `waldirborbajr/nfeloader:{{ .Tag }}`
+    - `waldirborbajr/nfeloader-image:latest`
+    - `waldirborbajr/nfeloader-image:{{ .Tag }}`
