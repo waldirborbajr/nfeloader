@@ -45,7 +45,7 @@ docker_manifests:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
 
 builds:
-  - main: ./cmd/cli ./cmd/api
+  - main: ./cmd/cli
     env:
       - CGO_ENABLED=0
     goos:

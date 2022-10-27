@@ -43,7 +43,7 @@ jobs:
       - name: "Setup Qemu"
         uses: docker/setup-qemu-action@v2
 
-      - name: "Seyup BuildX"
+      - name: "Setup BuildX"
         uses: docker/setup-buildx-action@v2
 
       - name: "Login to Docker Hub"
