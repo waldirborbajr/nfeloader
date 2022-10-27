@@ -9,7 +9,7 @@ dockers:
   goos: linux
   goarch: amd64
   dockerfile: Dockerfile
-  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64"]
+  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64"]
   build_flag_templates:
   - --platform=linux/amd64
   - --label=org.opencontainers.image.title={{ .ProjectName }}
@@ -23,7 +23,7 @@ dockers:
   goos: linux
   goarch: arm64
   dockerfile: Dockerfile
-  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64"]
+  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
   build_flag_templates:
   - --platform=linux/arm64
   - --label=org.opencontainers.image.title={{ .ProjectName }}
@@ -35,14 +35,14 @@ dockers:
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
 
 docker_manifests:
-- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
+- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 
 builds:
   - main: ./cmd/cli

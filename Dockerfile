@@ -9,16 +9,16 @@ LABEL maintainer="Waldir Borba Junior <wborbajr@gmail.com>" \
 ENV LANG=en_US.UTF-8 \
   LANGUAGE=en_US.UTF-8
 
-RUN apk add --update --no-cache \
-  tzdata \
-  htop \
-  apk-cron \
-  && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
-  && echo "America/Sao_Paulo" > /etc/timezone
-
-RUN adduser -S -D -H -h /app nfe
-
-USER nfe
+# RUN apk add --update --no-cache \
+#   tzdata \
+#   htop \
+#   apk-cron \
+#   && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+#   && echo "America/Sao_Paulo" > /etc/timezone
+#
+# RUN adduser -S -D -H -h /app nfe
+#
+# USER nfe
 
 WORKDIR /app
 
