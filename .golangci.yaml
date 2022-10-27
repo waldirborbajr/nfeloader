@@ -13,9 +13,9 @@
 linters:
   disable-all: true
   enable:
-    - golint
     - govet
     - gofmt
+    # - golint
     # - gocyclo
 
 issues:
