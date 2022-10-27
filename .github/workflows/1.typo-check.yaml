@@ -22,7 +22,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-          # REPO_GHA_PAT }}
         repository: ${{ github.repository }}
         event-type: trigger-lint
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

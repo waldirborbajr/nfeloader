@@ -52,7 +52,7 @@ jobs:
       if: success()
       uses: peter-evans/repository-dispatch@v1
       with:
-        token: ${{ secrets.REPO_GHA_PAT }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
         event-type: trigger-codeql
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
