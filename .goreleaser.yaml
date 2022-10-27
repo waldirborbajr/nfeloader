@@ -38,11 +38,11 @@ docker_manifests:
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  # - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  # - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 
 builds:
   - main: ./cmd/cli
