@@ -83,8 +83,9 @@ func setupHandlers(mux *http.ServeMux) {
 }
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("NFe Loader Audit! v" + config.Verzion)
+	w.Write([]byte("NFe Loader Audit! " + config.Verzion))
 }
 
 func handleXMLs(w http.ResponseWriter, r *http.Request) {
@@ -107,8 +108,6 @@ func handleXMLs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println(string(output))
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")

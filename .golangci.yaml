@@ -10,3 +10,36 @@
 #   - exhaustruct
 #   - exhaustivestruct
 
+linters:
+  disable-all: true
+  enable:
+    - golint
+    - govet
+    - gofmt
+    - gocyclo
+
+issues:
+  exclude-use-default: false
+  exclude:
+    # should have a package comment, unless it's in another file for this package (golint)
+    - 'in another file for this package'
+
+linters-settings:
+  gocyclo:
+    min-complexity: 5
+  golint:
+    # minimal confidence for issues, default is 0.8
+    min-confidence: 0
+  govet:
+    # report about shadowed variables
+    check-shadowing: true
+
+output:
+  # colored-line-number|line-number|json|tab|checkstyle|code-climate, default is "colored-line-number"
+  format: colored-line-number
+
+  # print lines of code with issue, default is true
+  print-issued-lines: false
+
+  # print linter name in the end of issue text, default is true
+  print-linter-name: true
