@@ -5,4 +5,5 @@ extend-exclude = [
   "/internal/repository/nfeproc_mysql.go",
   "/internal/services/quotation.go",
   "/docker-dev/entrypoint/database/nfeloader.sql",
+  "/cmd/api/certs/",
 ]
