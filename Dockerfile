@@ -1,23 +1,3 @@
-# ---------------
-# -- 1st Stage
-
-# FROM golang:1.19-alpine AS build
-#
-# WORKDIR /go/src/app
-#
-# COPY go.mod .
-# COPY go.sum .
-#
-# RUN go mod tidy
-#
-# COPY . .
-
-# Build the binary.
-# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
-
-# ---------------
-# -- 2nd Stage
-
 FROM alpine:3.13
 
 ENV PATH=/app/:$PATH
@@ -41,11 +21,6 @@ RUN adduser -S -D -H -h /app nfe
 USER nfe
 
 WORKDIR /app
-
-# COPY --from=build /go/src/app/run.sh run.sh
-# COPY --from=build /go/src/app/bin/nfeloader nfeloader
-
-# RUN chmod u+x run.sh
 
 COPY nfeloader /app
 
