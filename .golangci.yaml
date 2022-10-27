@@ -16,7 +16,7 @@ linters:
     - golint
     - govet
     - gofmt
-    - gocyclo
+    # - gocyclo
 
 issues:
   exclude-use-default: false
