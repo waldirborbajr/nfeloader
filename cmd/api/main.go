@@ -88,7 +88,12 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleXMLs(w http.ResponseWriter, r *http.Request) {
-	dir, err := os.Open("./certs")
+	pwd, err := os.Getwd()
+	if err != nil {
+		fmt.Printf("Error on Getwd -> %s", err.Error())
+	}
+
+	dir, err := os.Open(pwd + "/xmls")
 	if err != nil {
 		fmt.Printf("Error on Open -> %s", err.Error())
 	}
@@ -108,7 +113,6 @@ func handleXMLs(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(output)
-	// json.NewEncoder(w).Encode(output)
 }
 
 func main() {
