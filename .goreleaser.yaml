@@ -154,7 +154,10 @@ archives:
       - src: CHANGELOG*
 
 release:
+  github:
   prerelease: auto
+  ids:
+    - cli
 
   footer: |
     ## Binary Release
