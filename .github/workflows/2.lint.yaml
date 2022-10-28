@@ -15,9 +15,8 @@ on:
 
 jobs:
   golanglint:
-    needs: typocheck
+    if: ${{ github.event.typocheck.conclusion == 'success' }}
     name: "Lint"
-    if: success()
     runs-on: ubuntu-latest
     strategy:
       matrix:
