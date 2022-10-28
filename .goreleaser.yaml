@@ -175,7 +175,8 @@ dockers:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
   - 'waldirborbajr/nfeloader-api:{{ .Version }}-amd64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  binaries: [ nfeloader, nfeloader-api ]
+  binaries:
+    - nfeloader
   use: buildx
   goos: linux
   goarch: amd64
@@ -197,7 +198,7 @@ dockers:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
   - 'waldirborbajr/nfeloader-api:{{ .Version }}-arm64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-  binaries: [ nfeloader, nfeloader-api ]
+  # binaries: [ nfeloader, nfeloader-api ]
   use: buildx
   goos: linux
   goarch: arm64
