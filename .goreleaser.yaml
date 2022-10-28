@@ -89,7 +89,7 @@ builds:
     skip: false
 
 universal_binaries:
-- replace: false
+- replace: true
 
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
@@ -167,14 +167,15 @@ release:
 
     ## Docker Images
 
-    - `waldirborbajr/nfeloader:latest`
-    - `waldirborbajr/nfeloader:{{ .Tag }}`
+    - ghcr.io/waldirborbajr/nfeloader:latest
+    - 'ghcr.io/waldirborbajr/nfeloader:{{ .Version }}'
 
 dockers:
 - image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
-  - 'waldirborbajr/nfeloader-api:{{ .Tag }}-amd64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+  - 'waldirborbajr/nfeloader-api:{{ .Version }}-amd64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+  binaries: [ nfeloader, nfeloader-api ]
   use: buildx
   goos: linux
   goarch: amd64
@@ -193,9 +194,10 @@ dockers:
 
 # - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
 - image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
-  - 'waldirborbajr/nfeloader-api:{{ .Tag }}-arm64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+  - 'waldirborbajr/nfeloader-api:{{ .Version }}-arm64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+  binaries: [ nfeloader, nfeloader-api ]
   use: buildx
   goos: linux
   goarch: arm64
@@ -213,11 +215,12 @@ dockers:
   - --platform=linux/arm64
 
 docker_manifests:
-- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
+- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
