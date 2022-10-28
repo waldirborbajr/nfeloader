@@ -6,7 +6,6 @@ linters:
   enable:
     - gocritic
     - ineffassign
-    - logcheck
     - staticcheck
     - stylecheck
     - unused
