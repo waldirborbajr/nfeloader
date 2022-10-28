@@ -174,10 +174,8 @@ dockers:
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  binary:
-    - nfeloader
   extra_files:
-    - nfeloader-apie
+    - nfeloader-api
   use: buildx
   goos: linux
   goarch: amd64
