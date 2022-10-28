@@ -88,14 +88,12 @@ builds:
     skip: false
 
 checksum:
-  - id: cli
-    name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
-    algorithm: sha256
+  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
 snapshot:
   name_template: '{{ incpatch .Version }}-next'
 
 changelog:
-  id: cli
   sort: asc
   use: github
   filters:
@@ -125,6 +123,8 @@ changelog:
 
 archives:
   - id: cli
+    builds:
+      - cli
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     wrap_in_directory: true
 
@@ -149,7 +149,6 @@ archives:
       - src: CHANGELOG*
 
 release:
-  id: cli
   prerelease: auto
 
   footer: |
