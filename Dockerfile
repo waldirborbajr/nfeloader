@@ -12,7 +12,7 @@ ENV LANG=en_US.UTF-8 \
 WORKDIR /app
 
 COPY nfeloader /app
-COPY nfeloader-api /app
+# COPY nfeloader-api /app
 
 ENTRYPOINT ["/app/nfeloader"]
 
