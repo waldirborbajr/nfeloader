@@ -169,7 +169,7 @@ release:
 
     ## Docker Images
 
-  - `waldirborbajr/nfeloader:latest`
+    - `waldirborbajr/nfeloader:latest`
     - `waldirborbajr/nfeloader:{{ .Tag }}`
 
 dockers:
