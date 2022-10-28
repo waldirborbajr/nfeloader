@@ -1,21 +1,23 @@
 name: Lint
 
 on:
-  repository_dispatch:
-    types: [trigger-lint]
+  # repository_dispatch:
+  #   types: [trigger-lint]
 
-  # push:
-  #   tags:
-  #     - v*
-  #   branches:
-  #     - '**'
-  # pull_request:
-  #   branches:
-  #     - '**'
+  push:
+    tags:
+      - v*
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
-  golangci:
-    name: lint
+  golanglint:
+    needs: typocheck
+    name: "Lint"
+    if: success()
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,7 +30,7 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Go Lint Standard
+    - name: "Go Lint Standard"
       if: runner.os != 'Windows'
       uses: golangci/golangci-lint-action@v3
       with:
@@ -37,7 +39,7 @@ jobs:
         skip-pkg-cache: true
         skip-build-cache: true
 
-    - name: Go Lint Windows
+    - name: "Go Lint Windows"
       if: runner.os == 'Windows'
       uses: golangci/golangci-lint-action@v3
       env:
@@ -48,12 +50,12 @@ jobs:
         skip-pkg-cache: true
         skip-build-cache: true
 
-    - name: Trigger CodeQL
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        event-type: trigger-codeql
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-
+    # - name: Trigger CodeQL
+    #   if: success()
+    #   uses: peter-evans/repository-dispatch@v1
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     repository: ${{ github.repository }}
+    #     event-type: trigger-codeql
+    #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    #

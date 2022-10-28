@@ -5,7 +5,7 @@ before:
     - go mod tidy
 
 builds:
-  - id: default
+  - id: cli
     main: ./cmd/cli/main.go
     binary: nfeloader
 

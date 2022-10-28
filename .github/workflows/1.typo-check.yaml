@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  build:
+  typocheck:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -17,11 +17,11 @@ jobs:
     - name: typos-action
       uses: crate-ci/typos@master
 
-    - name: Trigger CodeQL
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        event-type: trigger-lint
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    # - name: Trigger CodeQL
+    #   if: success()
+    #   uses: peter-evans/repository-dispatch@v1
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     repository: ${{ github.repository }}
+    #     event-type: trigger-lint
+    #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
