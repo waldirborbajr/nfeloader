@@ -40,7 +40,8 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GH_PAT }}
+          # password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Release a new version"
         id: release
