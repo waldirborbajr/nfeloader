@@ -1,19 +1,10 @@
 name: Lint
 
 on: [workflow_call]
-# on:
-#   push:
-#     tags:
-#       - v*
-#     branches:
-#       - '**'
-#   pull_request:
-#     branches:
-#       - '**'
 
 jobs:
   typocheck:
-    uses: ./.github/workflows/1.typo-check.yaml
+    uses: ./.github/workflows/typo-check.yaml
 
   golanglint:
     # if: ${{ github.event.typocheck.conclusion == 'success' }}

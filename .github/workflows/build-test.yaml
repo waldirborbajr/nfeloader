@@ -10,8 +10,8 @@ on:
     branches:
       - '**'
 jobs:
-  reviewdog:
-    uses: ./.github/workflows/4.reviewdog.yaml
+  lint:
+    uses: ./.github/workflows/lint.yaml
 
   test:
     needs: [reviewdog]
