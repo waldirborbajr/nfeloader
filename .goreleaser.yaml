@@ -90,9 +90,13 @@ builds:
     mod_timestamp: '{{ .CommitTimestamp }}'
     skip: false
 
+universal_binaries:
+- replace: false
+
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
+
 snapshot:
   name_template: '{{ incpatch .Version }}-next'
 
@@ -156,53 +160,64 @@ release:
 
   footer: |
     ## Binary Release
+
     **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
+
     _Released with [GoReleaser](https://goreleaser.com/)!_
+
     ---
+
     ## Docker Images
-    - `waldirborbajr/nfeloader:latest`
+
+  - `waldirborbajr/nfeloader:latest`
     - `waldirborbajr/nfeloader:{{ .Tag }}`
 
-
 dockers:
-- id: [ 'cli','api' ]
+- image_templates:
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
   use: buildx
   goos: linux
   goarch: amd64
   dockerfile: Dockerfile
-  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64"]
   build_flag_templates:
-  - --platform=linux/amd64
-  - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --label=org.opencontainers.image.source=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+  - --pull
+  - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL
+  - --label=org.opencontainers.image.created={{ .Date }}
+  - --label=org.opencontainers.image.name={{ .ProjectName }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.version={{ .Version }}
+  - --label=org.opencontainers.image.source={{ .GitURL }}
+  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+  - --platform=linux/amd64
 
-- id: [ 'cli','api' ]
+# - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
+- image_templates:
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
   use: buildx
   goos: linux
   goarch: arm64
   dockerfile: Dockerfile
-  image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
   build_flag_templates:
-  - --platform=linux/arm64
-  - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --label=org.opencontainers.image.source=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+  - --pull
+  - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL
+  - --label=org.opencontainers.image.created={{ .Date }}
+  - --label=org.opencontainers.image.name={{ .ProjectName }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
+  - --label=org.opencontainers.image.version={{ .Version }}
+  - --label=org.opencontainers.image.source={{ .GitURL }}
+  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+  - --platform=linux/arm64
 
 docker_manifests:
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  # - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  # - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
