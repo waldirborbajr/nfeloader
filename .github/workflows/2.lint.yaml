@@ -14,6 +14,9 @@ on:
       - '**'
 
 jobs:
+  typocheck:
+    usese: ./.github/workflows/1.typo-check.yaml
+
   golanglint:
     if: ${{ github.event.typocheck.conclusion == 'success' }}
     name: "Lint"
