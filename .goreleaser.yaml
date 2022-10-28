@@ -165,7 +165,8 @@ release:
 
 
 dockers:
-- use: buildx
+- id: [ 'cli','api' ]
+  use: buildx
   goos: linux
   goarch: amd64
   dockerfile: Dockerfile
@@ -179,7 +180,9 @@ dockers:
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
-- use: buildx
+
+- id: [ 'cli','api' ]
+  use: buildx
   goos: linux
   goarch: arm64
   dockerfile: Dockerfile
