@@ -168,11 +168,8 @@ dockers:
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  skip_push: false
-  extra_files:
-    - nfeloader-api
-  ids:
-    - cli
+  # extra_files:
+  #   - nfeloader-api
   use: buildx
   goos: linux
   goarch: amd64
@@ -189,12 +186,11 @@ dockers:
   - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
   - --platform=linux/amd64
 
-# - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-  extra_files:
-    - nfeloader-api
+  # extra_files:
+  #   - nfeloader-api
   use: buildx
   goos: linux
   goarch: arm64
