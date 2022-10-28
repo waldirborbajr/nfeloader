@@ -197,7 +197,7 @@ dockers:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
   extra_files:
-    - dist/api_linux_amd64_v1/nfeloader-api
+    - nfeloader-api
   use: buildx
   goos: linux
   goarch: arm64
