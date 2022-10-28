@@ -149,6 +149,9 @@ release:
   ids:
     - cli
 
+  header: |
+    Welcome to this new release!
+
   footer: |
     ## Binary Release
 
@@ -160,13 +163,15 @@ release:
 
     ## Docker Images
 
-    - ghcr.io/waldirborbajr/nfeloader:latest
-    - 'ghcr.io/waldirborbajr/nfeloader:{{ .Version }}'
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:latest`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64`
 
 dockers:
 - image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
   # extra_files:
   #   - nfeloader-api
   use: buildx
@@ -186,8 +191,8 @@ dockers:
   - --platform=linux/amd64
 
 - image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
   # extra_files:
   #   - nfeloader-api
   use: buildx
@@ -207,12 +212,12 @@ dockers:
   - --platform=linux/arm64
 
 docker_manifests:
-- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
+- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
 
 - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
   image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
+  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
