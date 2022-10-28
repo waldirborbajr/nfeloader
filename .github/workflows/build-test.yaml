@@ -12,6 +12,7 @@ jobs:
     uses: ./.github/workflows/lint.yaml
 
   buildandtest:
+    name: "Build & Test"
     needs: [lint]
     strategy:
       matrix:
