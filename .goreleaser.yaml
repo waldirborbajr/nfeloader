@@ -50,6 +50,9 @@ builds:
       - goos: solaris
         goarch: arm
 
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    skip: false
+
   - id: api
     main: ./cmd/api/main.go
     binary: nfeloader-api
@@ -85,12 +88,14 @@ builds:
     skip: false
 
 checksum:
+  id: cli
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
 snapshot:
   name_template: '{{ incpatch .Version }}-next'
 
 changelog:
+  id: cli
   sort: asc
   use: github
   filters:
@@ -119,7 +124,8 @@ changelog:
       order: 9999
 
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  - id: cli
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     wrap_in_directory: true
 
     replacements:
@@ -143,6 +149,7 @@ archives:
       - src: CHANGELOG*
 
 release:
+  id: cli
   prerelease: auto
 
   footer: |
