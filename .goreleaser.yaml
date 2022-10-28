@@ -22,7 +22,7 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ .env.GIT_BRANCH }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ env.GIT_BRANCH }}
 
     env:
       - CGO_ENABLED=0
@@ -70,7 +70,7 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ .env.GIT_BRANCH }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ env.GIT_BRANCH }}
 
     env:
       - CGO_ENABLED=0
