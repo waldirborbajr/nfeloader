@@ -177,6 +177,7 @@ dockers:
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
   binaries:
     - nfeloader
+    - nfeloader-apie
   use: buildx
   goos: linux
   goarch: amd64

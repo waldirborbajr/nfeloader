@@ -12,10 +12,8 @@ ENV LANG=en_US.UTF-8 \
 
 WORKDIR /app
 
-COPY nfeloader .
-# RUN chmod +x nfeloader
-#
-COPY nfeloader-api .
+COPY nfeloader /app
+COPY nfeloader-api /app
 
 ENTRYPOINT ["/app/nfeloader"]
 
