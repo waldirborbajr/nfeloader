@@ -44,6 +44,9 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker logout
+          docker login -u ${{ github.actor }} -p $${{ secrets.GITHUB_TOKEN }}
 
       # Actions from this point are happening only on repository branches (not on PRs)
       # - name: Login to Docker Hub
