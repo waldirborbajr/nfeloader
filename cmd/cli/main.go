@@ -10,10 +10,11 @@ import (
 	"github.com/waldirborbajr/nfeloader/internal/cronjob"
 	"github.com/waldirborbajr/nfeloader/internal/customlog"
 	"github.com/waldirborbajr/nfeloader/internal/util"
+	"github.com/waldirborbajr/nfeloader/internal/version"
 )
 
 func main() {
-	log.Info().Msg("Starting NFeLoader " + config.Verzion + "\n")
+	log.Info().Msg("Starting NFeLoader " + version.AppVersion())
 
 	config.AppPath, config.Err = os.Getwd()
 

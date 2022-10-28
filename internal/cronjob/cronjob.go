@@ -15,6 +15,7 @@ import (
 	"github.com/waldirborbajr/nfeloader/internal/mail"
 	"github.com/waldirborbajr/nfeloader/internal/repository"
 	"github.com/waldirborbajr/nfeloader/internal/service"
+	"github.com/waldirborbajr/nfeloader/internal/version"
 	"github.com/waldirborbajr/nfeloader/internal/xml"
 )
 
@@ -26,7 +27,7 @@ func mainJob() {
 
 	log.Info().Msg("======================================================")
 	log.Info().Msgf("Server v%s pid=%d started with processes: %d",
-		config.Verzion, os.Getpid(), runtime.GOMAXPROCS(runtime.NumCPU()))
+		version.AppVersion(), os.Getpid(), runtime.GOMAXPROCS(runtime.NumCPU()))
 
 	start := time.Now()
 	log.Info().Msgf("Starting NF-e Loader: %s", time.Now())

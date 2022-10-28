@@ -4,6 +4,126 @@ before:
   hooks:
     - go mod tidy
 
+builds:
+  - id: default
+    main: ./cmd/cli/main.go
+    binary: nfeloader
+
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -extldflags '-static'
+      - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ .Env.GIT_BRANCH }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
+
+    env:
+      - CGO_ENABLED=0
+
+    # goos: [ 'darwin', 'linux', 'freebsd', 'netbsd', 'dragonfly', 'openbsd', 'windows' ] # Dynamic
+    # goarch: [ '386', 'amd64', 'mips', 'mips64', 'mips64le', 'mipsle', 'ppc64le', 'arm', 'arm64', 's390x' ] # Dynamic
+    # goarm: [ '5', '6', '7' ] # Dynamic
+    # gomips: [ 'hardfloat', 'softfloat' ] # Dynamic
+
+    goos: ['linux', 'darwin','windows','freebsd']
+    goarch: ['amd64','arm64']
+
+    ignore:
+      - goarch: arm
+        goos: windows
+      - goarch: arm64
+        goos: freebsd
+      - goarch: arm64
+        goos: windows
+      - goos: openbsd
+        goarch: arm
+      - goos: netbsd
+        goarch: arm
+      - goos: freebsd
+        goarch: arm
+      - goos: netbsd
+        goarch: arm
+      - goos: solaris
+        goarch: arm
+
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    skip: false
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
+snapshot:
+  name_template: '{{ incpatch .Version }}-next'
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+    - '^test:'
+    - '^chore'
+    - 'merge conflict'
+    - Merge pull request
+    - Merge remote-tracking branch
+    - Merge branch
+    - go mod tidy
+  groups:
+    - title: Dependency updates
+      regexp: "^.*(feat|fix)\\(deps\\)*:+.*$"
+      order: 300
+    - title: 'New Features'
+      regexp: "^.*feat[(\\w)]*:+.*$"
+      order: 100
+    - title: 'Bug fixes'
+      regexp: "^.*fix[(\\w)]*:+.*$"
+      order: 200
+    - title: 'Documentation updates'
+      regexp: "^.*docs[(\\w)]*:+.*$"
+      order: 400
+    - title: Other work
+      order: 9999
+
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    wrap_in_directory: true
+
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      amd64: x86_64
+      freebsd: FreeBSD
+      windows: Windows
+
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+
+release:
+  prerelease: auto
+
+  footer: |
+    ## Binary Release
+    **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
+    _Released with [GoReleaser](https://goreleaser.com/)!_
+    ---
+    ## Docker Images
+    - `waldirborbajr/nfeloader:latest`
+    - `waldirborbajr/nfeloader:{{ .Tag }}`
+
+
 dockers:
 - use: buildx
   goos: linux
@@ -43,98 +163,3 @@ docker_manifests:
   image_templates:
   - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
   # - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
-
-builds:
-  - main: ./cmd/cli
-    env:
-      - CGO_ENABLED=0
-    goos:
-      - linux
-      - darwin
-      - windows
-      - freebsd
-    goarch:
-      - amd64
-      - arm64
-    ignore:
-      - goarch: arm
-        goos: windows
-      - goarch: arm64
-        goos: freebsd
-      - goarch: arm64
-        goos: windows
-    mod_timestamp: '{{ .CommitTimestamp }}'
-    flags:
-      - -trimpath
-    ldflags:
-      - -s -w
-      - -X github.com/waldirborbajr/nfeloader/internal/config.Verzion={{.Version}}
-      - -X github.com/waldirborbajr/nfeloader/internal/config.Revizion={{.ShortCommit}}
-      - -X github.com/waldirborbajr/nfeloader/internal/config.Commit={{ .Commit }}
-      - -X github.com/waldirborbajr/nfeloader/internal/config.Date={{ .CommitDate }}
-      - -X github.com/waldirborbajr/nfeloader/internal/config.BuiltBy=goreleaser
-
-checksum:
-  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
-  algorithm: sha256
-snapshot:
-  name_template: '{{ incpatch .Version }}-next'
-
-changelog:
-  sort: asc
-  use: github
-  filters:
-    exclude:
-    - '^test:'
-    - '^chore'
-    - 'merge conflict'
-    - Merge pull request
-    - Merge remote-tracking branch
-    - Merge branch
-    - go mod tidy
-  groups:
-    - title: Dependency updates
-      regexp: "^.*(feat|fix)\\(deps\\)*:+.*$"
-      order: 300
-    - title: 'New Features'
-      regexp: "^.*feat[(\\w)]*:+.*$"
-      order: 100
-    - title: 'Bug fixes'
-      regexp: "^.*fix[(\\w)]*:+.*$"
-      order: 200
-    - title: 'Documentation updates'
-      regexp: "^.*docs[(\\w)]*:+.*$"
-      order: 400
-    - title: Other work
-      order: 9999
-
-archives:
-  - name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      amd64: x86_64
-      freebsd: FreeBSD
-      windows: Windows
-    format_overrides:
-      - goos: windows
-        format: zip
-    files:
-      - src: license*
-      - src: LICENSE*
-      - src: readme*
-      - src: README*
-      - src: changelog*
-      - src: CHANGELOG*
-    wrap_in_directory: true
-
-release:
-  prerelease: auto
-  footer: |
-    ## Binary Release
-    **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
-    _Released with [GoReleaser](https://goreleaser.com/)!_
-    ---
-    ## Docker Images
-    - `waldirborbajr/nfeloader:latest`
-    - `waldirborbajr/nfeloader:{{ .Tag }}`

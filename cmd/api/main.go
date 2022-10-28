@@ -8,7 +8,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/waldirborbajr/nfeloader/internal/config"
+	"github.com/waldirborbajr/nfeloader/internal/version"
 )
 
 var tlsCertFile = "./certs/certbundle.pem"
@@ -85,7 +85,7 @@ func setupHandlers(mux *http.ServeMux) {
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte("NFe Loader Audit! " + config.Verzion))
+	w.Write([]byte("NFe Loader Audit! " + version.AppVersion()))
 }
 
 func handleXMLs(w http.ResponseWriter, r *http.Request) {

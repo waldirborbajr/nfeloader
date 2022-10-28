@@ -10,7 +10,6 @@ import (
 )
 
 var (
-	Verzion = "dev-4.2.0"
 	DBcon   string
 	Err     error
 	Cfg     *entity.NFeConfig
