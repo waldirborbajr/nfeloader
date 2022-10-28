@@ -3,12 +3,8 @@ name: CodeQL
 on:
   push:
     branches: [ main ]
-    paths:
-      - '**.go'
   pull_request:
     branches: [ main ]
-    paths:
-      - '**.go'
   schedule:
     - cron: '00 01 * * 1'
 

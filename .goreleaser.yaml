@@ -16,7 +16,7 @@ builds:
       - -extldflags '-static'
       - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ .Env.GIT_BRANCH }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ .GitBranch }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
