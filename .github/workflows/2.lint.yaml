@@ -1,17 +1,15 @@
 name: Lint
 
-on:
-  # repository_dispatch:
-  #   types: [trigger-lint]
-
-  push:
-    tags:
-      - v*
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+on: [workflow_call]
+# on:
+#   push:
+#     tags:
+#       - v*
+#     branches:
+#       - '**'
+#   pull_request:
+#     branches:
+#       - '**'
 
 jobs:
   typocheck:
@@ -53,12 +51,3 @@ jobs:
         skip-pkg-cache: true
         skip-build-cache: true
 
-    # - name: Trigger CodeQL
-    #   if: success()
-    #   uses: peter-evans/repository-dispatch@v1
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     repository: ${{ github.repository }}
-    #     event-type: trigger-codeql
-    #     client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-    #

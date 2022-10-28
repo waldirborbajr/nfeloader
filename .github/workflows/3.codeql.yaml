@@ -1,8 +1,14 @@
 name: CodeQL
 
 on:
-  repository_dispatch:
-    types: [trigger-codeql]
+  push:
+    tags:
+      - v*
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 
   # push:
   #   branches: [ main ]
@@ -17,7 +23,11 @@ on:
   #   - cron: '00 01 * * *'
 
 jobs:
+  lint:
+    uses: ./.github/workflows/2.lint.yaml
+
   analyze:
+    needs: [lint]
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -46,11 +56,3 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
 
-    - name: Trigger Review Dog
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        event-type: trigger-review-dog
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
