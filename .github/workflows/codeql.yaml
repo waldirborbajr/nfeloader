@@ -1,11 +1,17 @@
 name: CodeQL
 
 on:
-  schedule:
-    - cron: '00 01 * * *'
+  push:
     branches: [ main ]
     paths:
       - '**.go'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.go'
+  schedule:
+    - cron: '00 01 * * 1'
+
 
 jobs:
   analyze:
