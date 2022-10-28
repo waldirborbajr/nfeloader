@@ -15,10 +15,11 @@ on:
 
 jobs:
   typocheck:
-    usese: ./.github/workflows/1.typo-check.yaml
+    uses: ./.github/workflows/1.typo-check.yaml
 
   golanglint:
-    if: ${{ github.event.typocheck.conclusion == 'success' }}
+    # if: ${{ github.event.typocheck.conclusion == 'success' }}
+    needs: [typocheck]
     name: "Lint"
     runs-on: ubuntu-latest
     strategy:
