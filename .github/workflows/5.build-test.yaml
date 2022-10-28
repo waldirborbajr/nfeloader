@@ -1,12 +1,20 @@
 name: Build & Test
 
 on:
-  repository_dispatch:
-    types: [trigger-build-test]
-
+  push:
+    tags:
+      - v*
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 jobs:
+  reviewdog:
+    uses: ./.github/workflows/4.reviewdog.yaml
 
   test:
+    needs: [reviewdog]
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]

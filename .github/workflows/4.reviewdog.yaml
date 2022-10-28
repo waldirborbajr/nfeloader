@@ -1,11 +1,23 @@
 name: Review DOG
 
-on:
-  repository_dispatch:
-    types: [trigger-review-dog]
+on: [workflow_call]
+
+# on:
+#   push:
+#     tags:
+#       - v*
+#     branches:
+#       - '**'
+#   pull_request:
+#     branches:
+#       - '**'
 
 jobs:
+  codeql:
+    uses: ./.github/workflows/3.codeql.yaml
+
   golangci-lint:
+    needs: [codeql]
     name: runner
     runs-on: ubuntu-latest
     steps:
@@ -15,11 +27,3 @@ jobs:
       - name: golangci-lint
         uses: reviewdog/action-golangci-lint@v2
 
-      - name: Trigger Test
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          event-type: trigger-build-test
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

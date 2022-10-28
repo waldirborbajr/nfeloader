@@ -1,14 +1,16 @@
 name: CodeQL
 
-on:
-  push:
-    tags:
-      - v*
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+on: [workflow_call]
+
+# on:
+#   push:
+#     tags:
+#       - v*
+#     branches:
+#       - '**'
+#   pull_request:
+#     branches:
+#       - '**'
 
   # push:
   #   branches: [ main ]
