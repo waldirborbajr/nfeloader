@@ -2,7 +2,11 @@ run:
   timeout: 5m
 
 linters:
+  enable-all: false
+  disable:
   disable-all: true
+  presets:
+  fast: false
   enable:
     - gocritic
     - ineffassign
@@ -11,6 +15,10 @@ linters:
     - unused
     - govet
     - gofmt
+    - gosec
+    - typecheck
+    - goimports
+    - deadcode
     # - golint
     # - gocyclo
 #   - varnamelen
@@ -20,17 +28,27 @@ linters:
 
 issues:
   max-same-issues: 0
+  max-same: 0
+  new: false
   exclude-use-default: false
   fix: true
+  exclude:
+    - "G304: Potential file inclusion via variable"
+    - "G204: Subprocess launched with variable"
+    - "G104: Errors unhandled"
+    - Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*printf?|os\.(Un)?Setenv). is not checked
+    # unparam warns that return value is always nil for functions that have an obligatory error return value but cannot produce an error
+    - .*result 0 \(error\) is always nil
 
 linters-settings:
+  errcheck:
+    check-type-assertions: false
+    check-blank: true
   gocyclo:
-    min-complexity: 5
+    min-complexity: 10
   golint:
-    # minimal confidence for issues, default is 0.8
-    min-confidence: 0
+    min-confidence: 0.8
   govet:
-    # report about shadowed variables
     check-shadowing: true
   stylecheck:
     checks: [
@@ -52,7 +70,7 @@ output:
   format: colored-line-number
 
   # print lines of code with issue, default is true
-  print-issued-lines: false
+  print-issued-lines: true
 
   # print linter name in the end of issue text, default is true
   print-linter-name: true
