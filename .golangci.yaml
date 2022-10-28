@@ -15,10 +15,10 @@ linters:
     - unused
     - govet
     - gofmt
-    - gosec
     - typecheck
     - goimports
     - deadcode
+      # - gosec
     # - golint
     # - gocyclo
 #   - varnamelen
