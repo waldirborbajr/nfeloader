@@ -173,10 +173,10 @@ release:
 dockers:
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  - 'waldirborbajr/nfeloader-api:{{ .Version }}-amd64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-  binaries:
+  binary:
     - nfeloader
+  extra_files:
     - nfeloader-apie
   use: buildx
   goos: linux
