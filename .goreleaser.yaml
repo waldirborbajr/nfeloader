@@ -195,9 +195,9 @@ dockers:
 # - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-  - 'waldirborbajr/nfeloader-api:{{ .Version }}-arm64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-  # binaries: [ nfeloader, nfeloader-api ]
+  extra_files:
+    - nfeloader-api
   use: buildx
   goos: linux
   goarch: arm64
