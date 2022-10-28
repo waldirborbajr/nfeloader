@@ -88,9 +88,9 @@ builds:
     skip: false
 
 checksum:
-  id: cli
-  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
-  algorithm: sha256
+  - id: cli
+    name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+    algorithm: sha256
 snapshot:
   name_template: '{{ incpatch .Version }}-next'
 
