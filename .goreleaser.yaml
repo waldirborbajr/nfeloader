@@ -143,6 +143,11 @@ archives:
       - src: changelog*
       - src: CHANGELOG*
 
+# create a source tarball
+# https://goreleaser.com/customization/source/
+source:
+  enabled: true
+
 release:
   github:
   prerelease: auto
@@ -181,12 +186,12 @@ dockers:
   build_flag_templates:
   - --pull
   - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
-  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL
+  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-amd64
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.name={{ .ProjectName }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.source={{ .GitURL }}
+  - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
   - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
   - --platform=linux/amd64
 
@@ -202,12 +207,12 @@ dockers:
   build_flag_templates:
   - --pull
   - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
-  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL
+  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.name={{ .ProjectName }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.source={{ .GitURL }}
+  - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
   - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
   - --platform=linux/arm64
 
