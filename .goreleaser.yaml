@@ -22,7 +22,6 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-      # - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ env.GIT_BRANCH }}
 
     env:
       - CGO_ENABLED=0
@@ -70,7 +69,6 @@ builds:
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-      # - -X github.com/waldirborbajr/nfeloader/internal/version.GitBranch={{ env.GIT_BRANCH }}
 
     env:
       - CGO_ENABLED=0
@@ -175,6 +173,7 @@ release:
 dockers:
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+  - 'waldirborbajr/nfeloader-api:{{ .Tag }}-amd64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
   use: buildx
   goos: linux
@@ -195,6 +194,7 @@ dockers:
 # - image_templates: ["ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64"]
 - image_templates:
   - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+  - 'waldirborbajr/nfeloader-api:{{ .Tag }}-arm64'
   - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
   use: buildx
   goos: linux
