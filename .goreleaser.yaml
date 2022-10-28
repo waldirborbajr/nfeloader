@@ -120,8 +120,6 @@ changelog:
 archives:
   - builds: [ cli ]
   # - id: cli
-    builds:
-      - cli
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     wrap_in_directory: true
 
