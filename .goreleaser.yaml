@@ -26,34 +26,10 @@ builds:
     env:
       - CGO_ENABLED=0
 
-    # goos: [ 'darwin', 'linux', 'freebsd', 'netbsd', 'dragonfly', 'openbsd', 'windows' ] # Dynamic
-    # goarch: [ '386', 'amd64', 'mips', 'mips64', 'mips64le', 'mipsle', 'ppc64le', 'arm', 'arm64', 's390x' ] # Dynamic
-    # goarm: [ '5', '6', '7' ] # Dynamic
-    # gomips: [ 'hardfloat', 'softfloat' ] # Dynamic
-
     goos: ['linux', 'darwin','windows','freebsd']
     goarch: ['amd64','arm64']
 
-    ignore:
-      - goarch: arm
-        goos: windows
-      - goarch: arm64
-        goos: freebsd
-      - goarch: arm64
-        goos: windows
-      - goos: openbsd
-        goarch: arm
-      - goos: netbsd
-        goarch: arm
-      - goos: freebsd
-        goarch: arm
-      - goos: netbsd
-        goarch: arm
-      - goos: solaris
-        goarch: arm
-
     mod_timestamp: '{{ .CommitTimestamp }}'
-    skip: false
 
   - id: api
     main: ./cmd/api/main.go
@@ -73,14 +49,36 @@ builds:
     env:
       - CGO_ENABLED=0
 
-    targets:
-      - linux_amd64
+    goos: [ linux ]
+    goarch: [ amd64, arm64 ]
 
     mod_timestamp: '{{ .CommitTimestamp }}'
-    # skip: false
 
-universal_binaries:
-- replace: true
+
+archives:
+  - builds: [ cli ]
+    allow_different_binary_count: true
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      amd64: x86_64
+      freebsd: FreeBSD
+      windows: Windows
+
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
 
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
@@ -94,7 +92,11 @@ changelog:
   use: github
   filters:
     exclude:
+    - '^docs:'
     - '^test:'
+    - '^ci:'
+    - '^draft'
+    - '^wip'
     - '^chore'
     - 'merge conflict'
     - Merge pull request
@@ -117,34 +119,6 @@ changelog:
     - title: Other work
       order: 9999
 
-archives:
-  - builds: [ cli ]
-  # - id: cli
-    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-    wrap_in_directory: true
-
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      amd64: x86_64
-      freebsd: FreeBSD
-      windows: Windows
-
-    format: tar.gz
-    format_overrides:
-      - goos: windows
-        format: zip
-
-    files:
-      - src: license*
-      - src: LICENSE*
-      - src: readme*
-      - src: README*
-      - src: changelog*
-      - src: CHANGELOG*
-
-# create a source tarball
-# https://goreleaser.com/customization/source/
 source:
   enabled: true
 
@@ -174,55 +148,57 @@ release:
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64`
 
 dockers:
-- image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
-  # extra_files:
-  #   - nfeloader-api
-  use: buildx
-  goos: linux
-  goarch: amd64
-  dockerfile: Dockerfile
-  build_flag_templates:
-  - --pull
-  - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
-  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-amd64
-  - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
-  - --label=org.opencontainers.image.name={{ .ProjectName }}
-  - --label=org.opencontainers.image.revision={{ .FullCommit }}
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
-  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --platform=linux/amd64
+  - id: cli-amd64
+    use: buildx
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+    build_flag_templates:
+      - --pull
+      - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+      - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-amd64
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.name={{ .ProjectName }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
+      - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+      - --platform=linux/amd64
 
-- image_templates:
-  - 'waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
-  - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
-  # extra_files:
-  #   - nfeloader-api
-  use: buildx
-  goos: linux
-  goarch: arm64
-  dockerfile: Dockerfile
-  build_flag_templates:
-  - --pull
-  - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
-  - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64
-  - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
-  - --label=org.opencontainers.image.name={{ .ProjectName }}
-  - --label=org.opencontainers.image.revision={{ .FullCommit }}
-  - --label=org.opencontainers.image.version={{ .Version }}
-  - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
-  - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
-  - --platform=linux/arm64
+  - id: cli-arm64
+    use: buildx
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+    build_flag_templates:
+      - --pull
+      - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+      - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.name={{ .ProjectName }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
+      - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+      - --platform=linux/arm64
 
 docker_manifests:
-- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}
-  image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}'
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
 
-- name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
-  image_templates:
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64
-  - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64
+  - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+
+# announce:
+#   slack:
+#     enabled: true
+#     channel: '#release'
+

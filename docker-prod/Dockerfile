@@ -12,8 +12,11 @@ RUN go mod tidy
 
 COPY . .
 
-# Build the binary.
+# Bulding CLI.
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
+
+# Bulding API
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader-api cmd/api/main.go
 
 # ---------------
 # -- 2nd Stage
@@ -44,10 +47,12 @@ WORKDIR /app
 
 COPY --from=build /go/src/app/run.sh run.sh
 COPY --from=build /go/src/app/bin/nfeloader nfeloader
+COPY --from=build /go/src/app/bin/nfeloader-api nfeloader-api
 
 RUN chmod u+x run.sh
 
 ENTRYPOINT ["/app/nfeloader"]
 
-CMD ["/bin/sh"]
+CMD ["/app/nfeloader-api"]
+# CMD ["/bin/sh"]
 

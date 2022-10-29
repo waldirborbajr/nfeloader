@@ -13,6 +13,8 @@ permissions:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_CLI_EXPERIMENTAL: "enabled"
 
     steps:
       - name: "Checkout"
@@ -27,7 +29,7 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: ">=1.19.0"
-          # cache: true
+          cache: true
 
       - name: "Setup Qemu"
         uses: docker/setup-qemu-action@v2
