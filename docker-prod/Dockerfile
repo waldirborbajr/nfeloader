@@ -12,10 +12,10 @@ RUN go mod tidy
 
 COPY . .
 
-# Bulding CLI.
+# Building CLI.
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader cmd/cli/main.go
 
-# Bulding API
+# Building API
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s -w -extldflags "-static"' -trimpath -o ./bin/nfeloader-api cmd/api/main.go
 
 # ---------------

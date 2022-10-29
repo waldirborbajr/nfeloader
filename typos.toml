@@ -6,4 +6,5 @@ extend-exclude = [
   "/internal/services/quotation.go",
   "/docker-dev/entrypoint/database/nfeloader.sql",
   "/cmd/api/certs/",
+  "/docker-prod/Dockerfile",
 ]
