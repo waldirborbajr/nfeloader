@@ -58,7 +58,7 @@ jobs:
         if: success() && startsWith(github.ref, 'refs/tags/')
         with:
           version: latest
-          args: release r --snapshot --rm-dist
+          args: release --snapshot --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
