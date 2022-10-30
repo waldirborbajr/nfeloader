@@ -13,5 +13,6 @@ COPY nfeloader-api /app
 
 ENTRYPOINT ["/app/nfeloader"]
 
-CMD ["/bin/sh"]
+CMD ["/app/nfeloader-api"]
+# CMD ["/bin/sh"]
 
