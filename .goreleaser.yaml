@@ -1,14 +1,12 @@
 project_name: nfeloader
 
-env:
-  - GIT_BRANCH='main'
-
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: cli
+  # - id: cli
+  -
     main: ./cmd/cli/main.go
     binary: nfeloader
 
@@ -27,38 +25,39 @@ builds:
     env:
       - CGO_ENABLED=0
 
-    goos: ['linux', 'darwin','windows','freebsd']
-    goarch: ['amd64','arm64']
+    goos: [ 'linux', 'darwin','windows','freebsd' ]
+    goarch: [ 'amd64','arm64' ]
 
     mod_timestamp: '{{ .CommitTimestamp }}'
 
-  - id: api
-    main: ./cmd/api/main.go
-    binary: nfeloader-api
-
-    flags:
-      - -trimpath
-    ldflags:
-      - -s
-      - -w
-      - -extldflags '-static'
-      - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-
-    env:
-      - CGO_ENABLED=0
-
-    goos: [ linux ]
-    goarch: [ amd64, arm64 ]
-
-    mod_timestamp: '{{ .CommitTimestamp }}'
+  # - id: api
+  #   main: ./cmd/api/main.go
+  #   binary: nfeloader-api
+  #
+  #   flags:
+  #     - -trimpath
+  #   ldflags:
+  #     - -s
+  #     - -w
+  #     - -extldflags '-static'
+  #     - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
+  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
+  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
+  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
+  #     - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
+  #
+  #   env:
+  #     - CGO_ENABLED=0
+  #
+  #   goos: [ 'linux' ]
+  #   goarch: [ 'amd64', 'arm64' ]
+  #
+  #   mod_timestamp: '{{ .CommitTimestamp }}'
 
 
 archives:
-  - builds: [ cli ]
+  # - builds: [ cli ]
+  -
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
 
     replacements:
@@ -128,8 +127,8 @@ source:
 release:
   github:
   prerelease: auto
-  ids:
-    - cli
+  # ids:
+  #   - cli
 
   header: |
     Welcome to this new release!
