@@ -5,8 +5,7 @@ before:
     - go mod tidy
 
 builds:
-  # - id: cli
-  -
+  - id: cli
     main: ./cmd/cli/main.go
     binary: nfeloader
 
@@ -30,8 +29,7 @@ builds:
 
     mod_timestamp: '{{ .CommitTimestamp }}'
 
-  # - id: api
-  -
+  - id: api
     main: ./cmd/api/main.go
     binary: nfeloader-api
 
