@@ -157,7 +157,7 @@ dockers:
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
     build_flag_templates:
-      - --pull
+      # - --pull
       - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
       - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-amd64
       - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
@@ -176,7 +176,7 @@ dockers:
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
     build_flag_templates:
-      - --pull
+      # - --pull
       - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
       - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64
       - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
