@@ -31,28 +31,29 @@ builds:
     mod_timestamp: '{{ .CommitTimestamp }}'
 
   # - id: api
-  #   main: ./cmd/api/main.go
-  #   binary: nfeloader-api
-  #
-  #   flags:
-  #     - -trimpath
-  #   ldflags:
-  #     - -s
-  #     - -w
-  #     - -extldflags '-static'
-  #     - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
-  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
-  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
-  #     - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
-  #     - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
-  #
-  #   env:
-  #     - CGO_ENABLED=0
-  #
-  #   goos: [ 'linux' ]
-  #   goarch: [ 'amd64', 'arm64' ]
-  #
-  #   mod_timestamp: '{{ .CommitTimestamp }}'
+  -
+    main: ./cmd/api/main.go
+    binary: nfeloader-api
+
+    flags:
+      - -trimpath
+    ldflags:
+      - -s
+      - -w
+      - -extldflags '-static'
+      - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
+      - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
+
+    env:
+      - CGO_ENABLED=0
+
+    goos: [ 'linux' ]
+    goarch: [ 'amd64', 'arm64' ]
+
+    mod_timestamp: '{{ .CommitTimestamp }}'
 
 
 archives:
