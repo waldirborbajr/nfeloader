@@ -5,7 +5,7 @@ before:
     - go mod tidy
 
 builds:
-  - id: cli
+  - id: nfecli
     main: ./cmd/cli/main.go
     binary: nfeloader
 
@@ -29,7 +29,7 @@ builds:
 
     mod_timestamp: '{{ .CommitTimestamp }}'
 
-  - id: api
+  - id: nfeapi
     main: ./cmd/api/main.go
     binary: nfeloader-api
 
@@ -55,7 +55,7 @@ builds:
 
 
 archives:
-  - builds: [ cli ]
+  - builds: [ nfecli ]
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
 
     replacements:
@@ -123,10 +123,10 @@ source:
   enabled: true
 
 release:
+  # ids:
+  #   - nfecli
   github:
   prerelease: auto
-  # ids:
-  #   - cli
 
   header: |
     Welcome to this new release!
