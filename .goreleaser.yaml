@@ -80,6 +80,9 @@ archives:
       - src: changelog*
       - src: CHANGELOG*
 
+universal_binaries:
+- replace: false
+
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
   algorithm: sha256
