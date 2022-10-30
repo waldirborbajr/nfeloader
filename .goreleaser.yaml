@@ -59,7 +59,6 @@ builds:
 
 archives:
   - builds: [ cli ]
-    allow_different_binary_count: true
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
 
     replacements:
