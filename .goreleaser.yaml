@@ -15,7 +15,8 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w
+      - -s
+      - -w
       - -extldflags '-static'
       - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
@@ -38,7 +39,8 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w
+      - -s
+      - -w
       - -extldflags '-static'
       - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
       - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
@@ -67,7 +69,6 @@ archives:
       freebsd: FreeBSD
       windows: Windows
 
-    format: tar.gz
     format_overrides:
       - goos: windows
         format: zip
@@ -143,9 +144,9 @@ release:
     ## Docker Images
 
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:latest`
-    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}`
-    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64`
-    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
 
 dockers:
   - id: cli-amd64
@@ -154,7 +155,7 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
     build_flag_templates:
       - --pull
       - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
@@ -173,7 +174,7 @@ dockers:
     goarch: arm64
     dockerfile: Dockerfile
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
     build_flag_templates:
       - --pull
       - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
@@ -187,15 +188,15 @@ dockers:
       - --platform=linux/arm64
 
 docker_manifests:
-  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}'
+  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
 
   - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-amd64'
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Tag }}-arm64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
 
 # announce:
 #   slack:
