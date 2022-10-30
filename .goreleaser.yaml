@@ -55,8 +55,7 @@ builds:
 
 
 archives:
-  # - builds: [ cli ]
-  -
+  - builds: [ cli ]
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
 
     replacements:
