@@ -147,7 +147,7 @@ release:
 
 dockers:
   - image_templates:
-    - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+    - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
 
 # dockers:
 #   - id: nfecli-amd64
