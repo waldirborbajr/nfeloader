@@ -145,6 +145,10 @@ release:
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
 
+dockers:
+  - image_templates:
+    - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+
 # dockers:
 #   - id: nfecli-amd64
 #     use: buildx
