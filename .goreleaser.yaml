@@ -172,6 +172,6 @@ docker_manifests:
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
 
-  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
-    image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+  # - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+  #   image_templates:
+  #     - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
