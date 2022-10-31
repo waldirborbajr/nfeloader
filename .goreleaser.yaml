@@ -154,8 +154,8 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
       - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
@@ -168,11 +168,34 @@ dockers:
       - '--label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}'
       - '--platform=linux/amd64'
 
+  - id: nfecli-arm64
+    use: buildx
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+    build_flag_templates:
+      - '--pull'
+      - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
+      - '--label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64'
+      - '--label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}'
+      - '--label=org.opencontainers.image.name={{ .ProjectName }}'
+      - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+      - '--label=org.opencontainers.image.version={{ .Version }}'
+      - '--label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}'
+      - '--label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}'
+      - '--platform=linux/arm64'
+
 docker_manifests:
   - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
 
   - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
