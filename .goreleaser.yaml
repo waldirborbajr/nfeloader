@@ -155,6 +155,7 @@ dockers:
     dockerfile: Dockerfile
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
       - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
@@ -172,6 +173,6 @@ docker_manifests:
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
 
-  # - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
-  #   image_templates:
-  #     - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
