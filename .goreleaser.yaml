@@ -174,10 +174,10 @@ docker_manifests:
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
 
   - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
