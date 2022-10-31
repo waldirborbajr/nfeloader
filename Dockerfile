@@ -18,13 +18,15 @@ COPY nfeloader /app
 
 COPY nfeloader-api /app
 
-# COPY nfestart.sh /app
+COPY nfestart.sh /app
+RUN chmod +x nfestart.sh
 
 EXPOSE 9191
 
-ENTRYPOINT ["/app/nfestart.sh"]
+# ENTRYPOINT ["/app/nfestart.sh"]
 # ENTRYPOINT ["/app/nfeloader"]
 
 # CMD ["/app/nfeloader-api"]
-CMD ["/bin/sh"]
+# CMD ["/bin/sh"]
 
+CMD ["/bin/sh","-c","/app/nfestart.sh"]
