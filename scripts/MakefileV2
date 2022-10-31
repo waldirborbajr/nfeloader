@@ -1,6 +1,6 @@
 # Common Certificate Attributes
 TRUST_DOMAIN_FQDN := example.com
-DEFAULT_BITS := 2048
+DEFAULT_BITS := 4096
 DEFAULT_MD := sha512
 ORGANIZATIONAL_UNIT := example
 ORGANIZATION := example

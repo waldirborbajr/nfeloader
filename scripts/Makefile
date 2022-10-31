@@ -4,6 +4,19 @@ PROJECT_NAME=nfeloader
 DOCKER_TAG=latest
 CONTAINER=nfeloader
 
+TRUST_DOMAIN_FQDN := nfeloader.com
+DEFAULT_BITS := 4096
+DEFAULT_MD := sha512
+ORGANIZATIONAL_UNIT := nfeloader
+ORGANIZATION := nfeloader
+ROOT_DAYS := 3650
+INTERMEDIATE_DAYS := 3650
+LEAF_DAYS := 1
+
+# Template Locations
+OPENSSL_TMPL := ./certs/openssl.cnf.tmpl
+LAYOUT_TMPL := ./certs/layout.tmpl
+
 #
 # Production
 # ------------------------------------------------------------------------------
@@ -111,6 +124,18 @@ binary:
 	CGO_ENABLED=0 GOOS=linux go build -a -trimpath -installsuffix cgo -ldflags "-s -w" -v -o ./release/${PROJECT_NAME}-linux main.go
 	CGO_ENABLED=0 GOOS=darwin go build -a -trimpath -installsuffix cgo -ldflags "-s -w" -v -o ./release/${PROJECT_NAME}-macos main.go
 	CGO_ENABLED=0 GOOS=windows go build -a -trimpath -installsuffix cgo -ldflags "-s -w" -v -o ./release/${PROJECT_NAME}-windows.exe main.go
+
+go-test:
+	@go test ./...
+
+build: modules
+	@mkdir -p bin
+	@go build -o ./bin/nfeloader ./cmd/cli/main.go
+	@go build -o ./bin/nfeloader-api ./cmd/api/main.go
+
+modules:
+	@go mod tidy
+
 
 #
 # Help

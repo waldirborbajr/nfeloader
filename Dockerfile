@@ -6,6 +6,12 @@ ENV PATH=/app/:$PATH
 ENV LANG=en_US.UTF-8 \
   LANGUAGE=en_US.UTF-8
 
+RUN apk add --update --no-cache \
+  tzdata \
+  htop \
+  && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+  && echo "America/Sao_Paulo" > /etc/timezone
+
 WORKDIR /app
 
 COPY nfeloader /app
@@ -14,6 +20,6 @@ COPY nfeloader-api /app
 
 ENTRYPOINT ["/app/nfeloader"]
 
-CMD ["/app/nfeloader-api"]
-# CMD ["/bin/sh"]
+# CMD ["/app/nfeloader-api"]
+CMD ["/bin/sh"]
 
