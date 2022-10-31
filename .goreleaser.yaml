@@ -156,7 +156,6 @@ dockers:
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
-      - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-{{ .Env.GO_VERSION }}'
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
