@@ -145,7 +145,7 @@ release:
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
 
-allow_different_binary_count: true
+# allow_different_binary_count: true
 
 dockers:
   - id: nfecli-amd64
