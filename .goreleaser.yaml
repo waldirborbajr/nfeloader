@@ -177,6 +177,7 @@ docker_manifests:
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
 
+  - id: nfecli-amd64
     name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
