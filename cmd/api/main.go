@@ -64,7 +64,7 @@ func NewServer(listenAddr string) *Server {
 }
 
 func (s *Server) Start() {
-	fmt.Printf("HTTP server is running on port %s", s.ListenAddr)
+	log.Printf("NFeLoader API - HTTP server is running on port %s", s.ListenAddr)
 
 	mux := http.NewServeMux()
 	setupHandlers(mux)
