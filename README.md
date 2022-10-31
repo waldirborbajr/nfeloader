@@ -1,11 +1,10 @@
 # NFeLoader
 
-[![Typo Check](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/1.typo-check.yaml)
-[![Lint](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/2.lint.yaml)
-[![CodeQL](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/3.codeql.yaml)
-[![Review DOG](https://github.com/waldirborbajr/nfeloader/actions/workflows/4.reviewdog.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/4.reviewdog.yaml)
-[![Build & Test](https://github.com/waldirborbajr/nfeloader/actions/workflows/5.build-test.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/5.build-test.yaml)
-[![Release Binary](https://github.com/waldirborbajr/nfeloader/actions/workflows/goreleaser.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/goreleaser.yaml)
+
+[![Typo Check](https://github.com/waldirborbajr/nfeloader/actions/workflows/typo-check.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/typo-check.yaml)
+[![Lint](https://github.com/waldirborbajr/nfeloader/actions/workflows/lint.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/lint.yaml)
+[![CodeQL](https://github.com/waldirborbajr/nfeloader/actions/workflows/codeql.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/codeql.yaml)
+[![Build & Test](https://github.com/waldirborbajr/nfeloader/actions/workflows/build-test.yaml/badge.svg)](https://github.com/waldirborbajr/nfeloader/actions/workflows/build-test.yaml)
 
 
 <p>
