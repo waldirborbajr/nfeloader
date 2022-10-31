@@ -18,6 +18,8 @@ COPY nfeloader /app
 
 COPY nfeloader-api /app
 
+EXPOSE 9191
+
 ENTRYPOINT ["/app/nfeloader"]
 
 CMD ["/app/nfeloader-api"]
