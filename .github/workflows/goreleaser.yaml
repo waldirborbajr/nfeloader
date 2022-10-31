@@ -5,11 +5,11 @@ on:
     tags:
       - 'v*'
 
-  permissions:
-    contents: write # needed to write releases
-    id-token: write # needed for keyless signing
-    packages: write # needed for ghcr access
-    issues: write
+permissions:
+  contents: write # needed to write releases
+  id-token: write # needed for keyless signing
+  packages: write # needed for ghcr access
+  issues: write
 
 jobs:
   goreleaser:
