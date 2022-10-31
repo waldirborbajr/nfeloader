@@ -152,7 +152,7 @@ dockers:
     use: buildx
     goos: linux
     goarch: amd64
-    dockerfile: '{{ .Env.DOCKERFILE }}'
+    dockerfile: Dockerfile
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
