@@ -153,6 +153,8 @@ dockers:
     goos: linux
     goarch: amd64
     dockerfile: Dockerfile
+    extra_files:
+      - nfestart.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
       # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
@@ -173,6 +175,8 @@ dockers:
     goos: linux
     goarch: arm64
     dockerfile: Dockerfile
+    extra_files:
+      - nfestart.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
       # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'

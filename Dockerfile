@@ -18,7 +18,7 @@ COPY nfeloader /app
 
 COPY nfeloader-api /app
 
-COPY start.sh /app
+# COPY nfestart.sh /app
 
 EXPOSE 9191
 
