@@ -142,7 +142,7 @@ define generate_openssl_conf
 	@cat $(OPENSSL_TMPL) | sed -e 's/{{TRUST_DOMAIN_FQDN}}/$(TRUST_DOMAIN_FQDN)/'  | \
 	sed -e 's/{{ORGANIZATIONAL_UNIT}}/$(ORGANIZATIONAL_UNIT)/' | \
 	sed -e 's/{{ORGANIZATION}}/$(ORGANIZATION)/' | \
-	sed -e 's/{{DEFUALT_BITS}}/$(DEFAULT_BITS)/' | \
+	sed -e 's/{{DEFAULT_BITS}}/$(DEFAULT_BITS)/' | \
 	sed -e 's/{{DEFAULT_MD}}/$(DEFAULT_MD)/' | \
 	sed -e 's/{{SPIFFE_PATH}}/$(1)/' > certs/$(TRUST_DOMAIN_FQDN).$(1).openssl.cnf
 endef
