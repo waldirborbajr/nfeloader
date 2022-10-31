@@ -152,7 +152,6 @@ dockers:
     use: buildx
     goos: linux
     goarch: amd64
-    use: buildx
     dockerfile: Dockerfile
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
@@ -178,3 +177,8 @@ docker_manifests:
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
 
+    name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+    image_templates:
+      - 'waldirborbajr/{{ .ProjectName }}:latest'
+      - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
