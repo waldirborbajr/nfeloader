@@ -145,14 +145,19 @@ release:
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
 
+allow_different_binary_count: true
+
 dockers:
   - id: nfecli-amd64
     use: buildx
     goos: linux
     goarch: amd64
-    dockerfile: Dockerfile
+    dockerfile: '{{ .Env.DOCKERFILE }}'
     image_templates:
-      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'waldirborbajr/{{ .ProjectName }}:latest'
+      - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+      - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}-{{ .Env.GO_VERSION }}'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
       - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
@@ -184,11 +189,12 @@ dockers:
 #       - '--label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}'
 #       - '--platform=linux/arm64'
 #
-# docker_manifests:
-#   - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
-#     image_templates:
-#       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-#       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
+docker_manifests:
+  - id: nfecli-amd64
+    name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+    image_templates:
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
+      - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
 #
 #   - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
 #     image_templates:
