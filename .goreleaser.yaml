@@ -170,15 +170,13 @@ dockers:
       - '--platform=linux/amd64'
 
 docker_manifests:
-  - id: nfecli-amd64
-    name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
+  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
 
-  - id: nfecli-amd64
-    name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
+  - name_template: 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     image_templates:
       - 'waldirborbajr/{{ .ProjectName }}:latest'
       - 'waldirborbajr/{{ .ProjectName }}:{{ .Version }}'
