@@ -22,7 +22,7 @@ COPY nfeloader-api /app
 
 EXPOSE 9191
 
-ENTRYPOINT ["/app/start.sh"]
+ENTRYPOINT ["/app/nfestart.sh"]
 # ENTRYPOINT ["/app/nfeloader"]
 
 # CMD ["/app/nfeloader-api"]
