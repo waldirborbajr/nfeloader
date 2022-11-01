@@ -117,7 +117,7 @@ func handleXMLs(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// default port on empty
 	if len(listenAddr) == 0 {
-		listenAddr = ":9191"
+		listenAddr = ":9693"
 	}
 
 	s := NewServer(listenAddr)
