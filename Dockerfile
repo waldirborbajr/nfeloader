@@ -16,6 +16,10 @@ WORKDIR /app
 COPY nfeloader /app
 COPY nfeloader-api /app
 
-ENTRYPOINT ["/app/nfeloader"]
-CMD ["/bin/sh"]
+EXPOSE 9191
 
+# ENTRYPOINT ["/app/nfeloader"]
+# CMD ["/bin/sh"]
+
+
+CMD["/app/nfeloader", "/app/nfeloader-api"]
