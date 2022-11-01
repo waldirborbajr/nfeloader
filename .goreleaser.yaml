@@ -7,7 +7,7 @@ before:
 builds:
   - id: cli
     main: ./cmd/cli/main.go
-    binary: {{ .ProjectName }}
+    binary: nfeloader
 
     flags:
       - -trimpath
@@ -31,7 +31,7 @@ builds:
 
   - id: api
     main: ./cmd/api/main.go
-    binary: {{ .ProjectName }}-api
+    binary: nfeloader-api
 
     flags:
       - -trimpath
