@@ -5,9 +5,9 @@ before:
     - go mod tidy
 
 builds:
-  - id: nfecli
+  - id: cli
     main: ./cmd/cli/main.go
-    binary: nfeloader
+    binary: {{ .ProjectName }}
 
     flags:
       - -trimpath
@@ -15,11 +15,11 @@ builds:
       - -s
       - -w
       - -extldflags '-static'
-      - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.Version={{ .Version }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitTag={{ .Tag }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitSummary={{ .Summary }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.BuildDate={{ .Date }}
 
     env:
       - CGO_ENABLED=0
@@ -29,9 +29,9 @@ builds:
 
     mod_timestamp: '{{ .CommitTimestamp }}'
 
-  - id: nfeapi
+  - id: api
     main: ./cmd/api/main.go
-    binary: nfeloader-api
+    binary: {{ .ProjectName }}-api
 
     flags:
       - -trimpath
@@ -39,11 +39,11 @@ builds:
       - -s
       - -w
       - -extldflags '-static'
-      - -X github.com/waldirborbajr/nfeloader/internal/version.Version={{ .Version }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitCommit={{ .ShortCommit }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitTag={{ .Tag }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.GitSummary={{ .Summary }}
-      - -X github.com/waldirborbajr/nfeloader/internal/version.BuildDate={{ .Date }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.Version={{ .Version }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitCommit={{ .ShortCommit }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitTag={{ .Tag }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitSummary={{ .Summary }}
+      - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.BuildDate={{ .Date }}
 
     env:
       - CGO_ENABLED=0
@@ -55,7 +55,7 @@ builds:
 
 
 archives:
-  - builds: [ nfecli ]
+  - builds: [ cli ]
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
 
     replacements:
@@ -148,16 +148,13 @@ release:
 # allow_different_binary_count: true
 
 dockers:
-  - id: nfecli-amd64
+  - id: cli-amd64
     use: buildx
     goos: linux
     goarch: amd64
     dockerfile: Dockerfile
-    extra_files:
-      - nfestart.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
-      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
       - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
@@ -170,16 +167,13 @@ dockers:
       - '--label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}'
       - '--platform=linux/amd64'
 
-  - id: nfecli-arm64
+  - id: cli-arm64
     use: buildx
     goos: linux
     goarch: arm64
     dockerfile: Dockerfile
-    extra_files:
-      - nfestart.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
     build_flag_templates:
       - '--pull'
       - '--label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]'
@@ -202,4 +196,3 @@ docker_manifests:
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
-      # - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:latest'
