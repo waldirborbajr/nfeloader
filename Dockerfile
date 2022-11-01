@@ -18,8 +18,9 @@ COPY nfeloader-api /app
 
 EXPOSE 9191
 
-ENTRYPOINT ["/app/nfeloader"]
-CMD ["/bin/sh"]
+# ENTRYPOINT ["/app/nfeloader"]
+# CMD ["/bin/sh"]
 
 # CMD ["start_cli_api.sh"]
-# CMD ["bash", "-c", "/app/nfeloader && /app/nfeloader-api"]
+#
+CMD ["bash", "-c", "/app/nfeloader-api && /app/nfeloader"]
