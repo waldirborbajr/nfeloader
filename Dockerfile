@@ -24,12 +24,12 @@ COPY nfeloader-api /app
 EXPOSE 9191
 
 # Working
-# ENTRYPOINT ["/app/nfeloader"]
-# CMD ["/bin/sh"]
+ENTRYPOINT ["/app/nfeloader"]
+CMD ["/bin/sh"]
 
 # ENTRYPOINT ["/app/nfestart.sh"]
 
-CMD ["/app/nfeloader", "/app/nfeloader-api"]
+# CMD ["/app/nfeloader", "/app/nfeloader-api"]
 # CMD ["/bin/sh"]
 
 # CMD ["/bin/sh","-c","/app/nfestart.sh"]
