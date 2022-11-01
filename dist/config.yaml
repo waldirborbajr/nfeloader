@@ -1,0 +1,277 @@
+project_name: nfeloader
+release:
+  github:
+    owner: waldirborbajr
+    name: nfeloader
+  prerelease: auto
+  name_template: '{{.Tag}}'
+  ids:
+    - cli-bundle
+  header: |
+    Welcome to this new release!
+  footer: |
+    ## Binary Release
+
+    **Full Changelog**: https://{{ .ModulePath }}/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+    _Released with [GoReleaser](https://goreleaser.com/)!_
+
+    ---
+
+    ## Docker Images
+
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:latest`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
+    - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
+scoop:
+  name: nfeloader
+  commit_author:
+    name: goreleaserbot
+    email: bot@goreleaser.com
+  commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
+  goamd64: v1
+builds:
+  - id: cli
+    goos:
+      - linux
+      - darwin
+      - windows
+      - freebsd
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - linux_amd64_v1
+      - linux_arm64
+      - darwin_amd64_v1
+      - darwin_arm64
+      - windows_amd64_v1
+      - windows_arm64
+      - freebsd_amd64_v1
+      - freebsd_arm64
+    dir: .
+    main: ./cmd/cli/main.go
+    binary: nfeloader
+    builder: go
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    gobinary: go
+    command: build
+    ldflags:
+      - -s
+      - -w
+      - -extldflags '-static'
+      - -X {{ .ModulePath }}/internal/version.Version={{ .Version }}
+      - -X {{ .ModulePath }}/internal/version.GitCommit={{ .ShortCommit }}
+      - -X {{ .ModulePath }}/internal/version.GitTag={{ .Tag }}
+      - -X {{ .ModulePath }}/internal/version.GitSummary={{ .Summary }}
+      - -X {{ .ModulePath }}/internal/version.BuildDate={{ .Date }}
+    flags:
+      - -trimpath
+    env:
+      - CGO_ENABLED=0
+  - id: api
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - linux_amd64_v1
+      - linux_arm64
+    dir: .
+    main: ./cmd/api/main.go
+    binary: nfeloader-api
+    builder: go
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    gobinary: go
+    command: build
+    ldflags:
+      - -s
+      - -w
+      - -extldflags '-static'
+      - -X {{ .ModulePath }}/internal/version.Version={{ .Version }}
+      - -X {{ .ModulePath }}/internal/version.GitCommit={{ .ShortCommit }}
+      - -X {{ .ModulePath }}/internal/version.GitTag={{ .Tag }}
+      - -X {{ .ModulePath }}/internal/version.GitSummary={{ .Summary }}
+      - -X {{ .ModulePath }}/internal/version.BuildDate={{ .Date }}
+    flags:
+      - -trimpath
+    env:
+      - CGO_ENABLED=0
+archives:
+  - id: cli-bundle
+    builds:
+      - cli
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    replacements:
+      amd64: x86_64
+      darwin: Darwin
+      freebsd: FreeBSD
+      linux: Linux
+      windows: Windows
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - src: license*
+      - src: LICENSE*
+      - src: readme*
+      - src: README*
+      - src: changelog*
+      - src: CHANGELOG*
+snapshot:
+  name_template: '{{ incpatch .Version }}-next'
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
+dockers:
+  - id: cli-amd64
+    goos: linux
+    goarch: amd64
+    goamd64: v1
+    dockerfile: Dockerfile
+    image_templates:
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+    build_flag_templates:
+      - --pull
+      - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+      - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-amd64
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.name={{ .ProjectName }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
+      - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+      - --platform=linux/amd64
+    use: buildx
+  - id: cli-arm64
+    goos: linux
+    goarch: arm64
+    goamd64: v1
+    dockerfile: Dockerfile
+    image_templates:
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+    build_flag_templates:
+      - --pull
+      - --label=io.artifacthub.package.maintainers=[{\"name\":\"Waldir Borba Junior (c)\",\"email\":\"wborbajr@gmail.com\"}]
+      - --label=org.opencontainers.image.description=NFe Loader - from XML to MySQL - linux-arm64
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.name={{ .ProjectName }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.source={{ trimsuffix .GitURL ".git" }}
+      - --label=org.opencontainers.image.url=https://github.com/waldirborbajr/{{ .ProjectName }}
+      - --platform=linux/arm64
+    use: buildx
+docker_manifests:
+  - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}
+    image_templates:
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+    use: docker
+  - name_template: ghcr.io/waldirborbajr/{{ .ProjectName }}:latest
+    image_templates:
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64
+    use: docker
+changelog:
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - ^draft
+      - ^wip
+      - ^chore
+      - merge conflict
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+      - go mod tidy
+  sort: asc
+  use: github
+  groups:
+    - title: Dependency updates
+      regexp: ^.*(feat|fix)\(deps\)*:+.*$
+      order: 300
+    - title: New Features
+      regexp: ^.*feat[(\w)]*:+.*$
+      order: 100
+    - title: Bug fixes
+      regexp: ^.*fix[(\w)]*:+.*$
+      order: 200
+    - title: Documentation updates
+      regexp: ^.*docs[(\w)]*:+.*$
+      order: 400
+    - title: Other work
+      order: 9999
+dist: dist
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+  gitlab_token: ~/.config/goreleaser/gitlab_token
+  gitea_token: ~/.config/goreleaser/gitea_token
+before:
+  hooks:
+    - go mod tidy
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+  enabled: true
+gomod:
+  gobinary: go
+announce:
+  twitter:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+  reddit:
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    url_template: '{{ .ReleaseURL }}'
+  slack:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    username: GoReleaser
+  discord:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    author: GoReleaser
+    color: "3888754"
+    icon_url: https://goreleaser.com/static/avatar.png
+  teams:
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    color: '#2D313E'
+    icon_url: https://goreleaser.com/static/avatar.png
+  smtp:
+    subject_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    body_template: 'You can view details from: {{ .ReleaseURL }}'
+  mattermost:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+    title_template: '{{ .ProjectName }} {{ .Tag }} is out!'
+    username: GoReleaser
+  linkedin:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+  telegram:
+    message_template: '{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}'
+  webhook:
+    message_template: '{ "message": "{{ .ProjectName }} {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}"}'
+    content_type: application/json; charset=utf-8
+universal_binaries:
+  - id: nfeloader
+    ids:
+      - nfeloader
+    name_template: '{{ .ProjectName }}'
+github_urls:
+  download: https://github.com
+gitlab_urls:
+  download: https://gitlab.com

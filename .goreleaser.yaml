@@ -158,7 +158,7 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile
     extra_files:
-      - start_cli_api.sh
+      - ./start_cli_api.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
     build_flag_templates:
