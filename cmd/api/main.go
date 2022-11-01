@@ -36,6 +36,8 @@ func init() {
 	} else {
 		listenAddr = os.Getenv("LISTEN_ADDR_TLS")
 	}
+
+	fmt.Println("INIT ---> " + listenAddr)
 }
 
 func (f FileInfo) MarshalJSON() ([]byte, error) {
@@ -64,6 +66,7 @@ func NewServer(listenAddr string) *Server {
 }
 
 func (s *Server) Start() {
+	fmt.Println("START ----> " + s.ListenAddr)
 	log.Printf("NFeLoader API - HTTP server is running on port %s", s.ListenAddr)
 
 	mux := http.NewServeMux()
@@ -117,7 +120,7 @@ func handleXMLs(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// default port on empty
 	if len(listenAddr) == 0 {
-		listenAddr = ":9191"
+		listenAddr = ":9693"
 	}
 
 	s := NewServer(listenAddr)

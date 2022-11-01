@@ -16,10 +16,11 @@ WORKDIR /app
 COPY nfeloader /app
 COPY nfeloader-api /app
 
-EXPOSE 9191
+EXPOSE 9693
 
-ENTRYPOINT ["/app/nfeloader"]
+ENTRYPOINT ["/app/nfeloader-api"]
 CMD ["/bin/sh"]
 
 # CMD ["start_cli_api.sh"]
-# CMD ["bash", "-c", "/app/nfeloader && /app/nfeloader-api"]
+#
+# CMD ["bash", "-c", "/app/nfeloader-api && /app/nfeloader"]

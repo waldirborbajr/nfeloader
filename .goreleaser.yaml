@@ -44,11 +44,6 @@ builds:
       - -X {{ .ModulePath }}/internal/version.GitTag={{ .Tag }}
       - -X {{ .ModulePath }}/internal/version.GitSummary={{ .Summary }}
       - -X {{ .ModulePath }}/internal/version.BuildDate={{ .Date }}
-      # - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.Version={{ .Version }}
-      # - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitCommit={{ .ShortCommit }}
-      # - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitTag={{ .Tag }}
-      # - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.GitSummary={{ .Summary }}
-      # - -X github.com/waldirborbajr/{{ .ProjectName }}/internal/version.BuildDate={{ .Date }}
 
     env:
       - CGO_ENABLED=0
@@ -141,7 +136,7 @@ release:
   footer: |
     ## Binary Release
 
-    # **Full Changelog**: https://github.com/waldirborbajr/nfeloader/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://{{ .ModulePath }}/compare/{{ .PreviousTag }}...{{ .Tag }}
 
     _Released with [GoReleaser](https://goreleaser.com/)!_
 
@@ -163,7 +158,7 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile
     extra_files:
-      - start_cli_api.sh
+      - ./start_cli_api.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
     build_flag_templates:
