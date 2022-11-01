@@ -22,4 +22,5 @@ EXPOSE 9191
 # CMD ["/bin/sh"]
 
 
-CMD["/app/nfeloader", "/app/nfeloader-api"]
+CMD["bash", "-c", "/app/nfeloader && /app/nfeloader-api"]
+# CMD["/app/nfeloader", "/app/nfeloader-api"]
