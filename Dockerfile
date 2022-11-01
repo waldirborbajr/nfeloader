@@ -21,6 +21,4 @@ EXPOSE 9191
 # ENTRYPOINT ["/app/nfeloader"]
 # CMD ["/bin/sh"]
 
-
-CMD["sh", "-c", "/app/nfeloader && /app/nfeloader-api"]
-# CMD["/app/nfeloader", "/app/nfeloader-api"]
+CMD["start_cli_api.sh"]
