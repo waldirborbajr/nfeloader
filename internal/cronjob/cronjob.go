@@ -26,7 +26,7 @@ func mainJob() {
 	path := config.AppPath + "/xmls/"
 
 	log.Info().Msg("======================================================")
-	log.Info().Msgf("Server v%s pid=%d started with processes: %d",
+	log.Info().Msgf("Server %s pid=%d started with processes: %d",
 		version.AppVersion(), os.Getpid(), runtime.GOMAXPROCS(runtime.NumCPU()))
 
 	start := time.Now()

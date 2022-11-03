@@ -54,6 +54,8 @@ func pop(list *[]uint32) uint32 {
 
 func NewMessage(path string, config *entity.NFeConfig) error {
 	// Connect to mail server
+
+	log.Info().Msg("Account " + config.MailUsr)
 	c, err := CustomerImapClient(config.MailUsr, config.MailPwd, config.MailServer)
 	if err != nil {
 		return err
