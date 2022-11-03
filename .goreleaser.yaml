@@ -149,16 +149,14 @@ release:
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64`
     - docker pull `ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64`
 
-# allow_different_binary_count: true
-
 dockers:
   - id: cli-amd64
     use: buildx
     goos: linux
     goarch: amd64
     dockerfile: Dockerfile
-    extra_files:
-      - ./start_cli_api.sh
+    # extra_files:
+    #   - start_cli_api.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-amd64'
     build_flag_templates:
@@ -178,8 +176,8 @@ dockers:
     goos: linux
     goarch: arm64
     dockerfile: Dockerfile
-    extra_files:
-      - start_cli_api.sh
+    # extra_files:
+    #   - start_cli_api.sh
     image_templates:
       - 'ghcr.io/waldirborbajr/{{ .ProjectName }}:{{ .Version }}-arm64'
     build_flag_templates:

@@ -13,6 +13,7 @@ RUN apk add --update --no-cache \
 
 WORKDIR /app
 
+COPY start_cli_api.sh /app
 COPY nfeloader /app
 COPY nfeloader-api /app
 
