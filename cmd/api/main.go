@@ -83,6 +83,8 @@ func (s *Server) Start() {
 func setupHandlers(mux *http.ServeMux) {
 	mux.HandleFunc("/", handleRoot)
 	mux.HandleFunc("/xmls", handleXMLs)
+	mux.HandleFunc("/xmlprocessed", handleXMLs)
+	mux.HandleFunc("/xmlerror", handleXMLs)
 }
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +99,10 @@ func handleXMLs(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("Error on Getwd -> %s", err.Error())
 	}
 
-	dir, err := os.Open(pwd + "/xmls")
+	path := r.URL.Path
+	fmt.Println(path)
+
+	dir, err := os.Open(pwd + path)
 	if err != nil {
 		fmt.Printf("Error on Open -> %s", err.Error())
 	}
