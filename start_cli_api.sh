@@ -2,7 +2,6 @@
 
 /app/nfeloader &
 P1=$!
-# /app/nfeloader-api &
-# P2=$!
-# wait $P1 $P2
-wait $P1
+/app/nfeloader-api &
+P2=$!
+wait $P1 $P2
