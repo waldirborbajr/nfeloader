@@ -53,7 +53,7 @@ prodexec:
 	docker exec -it ${PROJECT_NAME} /bin/sh
 
 proddeploy:
-	@echo "\nStarting delpoy...\n"
+	@echo "\nStarting deploy...\n"
 	docker push ${DOCKER_USER}/${PROJECT_NAME}${DOCKER_TAG}:
 
 #
