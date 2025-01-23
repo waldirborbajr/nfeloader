@@ -46,6 +46,6 @@ jobs:
           test -z $(gofmt -l -s .)
 
       - name: Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         if: matrix.os == 'ubuntu-latest'
 
