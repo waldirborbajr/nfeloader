@@ -4,7 +4,9 @@ go 1.19
 
 require (
 	github.com/emersion/go-imap v1.2.1
-	github.com/emersion/go-message v0.18.1
+
+	github.com/emersion/go-message v0.18.2
+
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/joho/godotenv v1.5.1
 	github.com/robfig/cron/v3 v3.0.1
