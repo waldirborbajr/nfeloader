@@ -24,7 +24,7 @@ jobs:
 
     - name: "Go Lint Standard"
       if: runner.os != 'Windows'
-      uses: golangci/golangci-lint-action@v7
+      uses: golangci/golangci-lint-action@v8
       with:
         version: latest
         args: "--out-${NO_FUTURE}format colored-line-number"
@@ -33,7 +33,7 @@ jobs:
 
     - name: "Go Lint Windows"
       if: runner.os == 'Windows'
-      uses: golangci/golangci-lint-action@v7
+      uses: golangci/golangci-lint-action@v8
       env:
         outformat: out-format
       with:
