@@ -1,16 +1,11 @@
 module github.com/waldirborbajr/nfeloader
 
-go 1.19
+go 1.21.0
 
 require (
 	github.com/emersion/go-imap v1.2.1
-
-	github.com/go-sql-driver/mysql v1.9.2
-
-
 	github.com/emersion/go-message v0.18.2
-
-
+	github.com/go-sql-driver/mysql v1.9.3
 	github.com/joho/godotenv v1.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/rs/zerolog v1.34.0
